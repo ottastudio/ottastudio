@@ -3,6 +3,7 @@ import { Fragment } from "react";
 import { NextRouter } from "next/router";
 
 import Navigation from "../Components/Utils/Navigation";
+import NProgress from "../Components/Utils/Loader/NProgress";
 
 interface AppProps {
   Component: NextComponentType;
@@ -15,6 +16,7 @@ const MyApp: NextPage<AppProps> = ({ Component, pageProps, router }) => {
     <Fragment>
       <Navigation />
       <Component {...pageProps} key={router.asPath} />
+      <NProgress />
 
       <style jsx global>{`
         * {
