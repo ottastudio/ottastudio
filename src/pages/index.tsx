@@ -3,35 +3,36 @@ import Axios from "axios";
 import Head from "next/head";
 
 import { useUrlOnServer } from "../lib/hooks/useUrlOnServer";
+import useRequest from "../lib/hooks/useRequest";
+
 import Article from "../Components/Home/Article";
 
 const Index: NextPage<{ initialData: any }> = ({ initialData }) => {
+  const {
+    data: { sites }
+  } = useRequest({ url: "/api/v1/sites/data" }, { initialData: initialData });
+
+  const description = `${sites.info.description[0]}. ${sites.info.description[1]}`;
+
   const canonical =
     typeof window !== "undefined" && window && window.location.origin;
 
   return (
     <div>
       <Head>
-        <title>Otta &amp; Studio's</title>
+        <title>{sites.name.full}</title>
         <link rel="canonical" href={`${canonical}`} />
-        <meta
-          name="description"
-          content="Eclectic design languages for modern era."
-        />
-
+        <meta name="description" content={description} />
         <meta property="og:title" content="Otta & Studio's" />
         <meta name="og:url" content={`${canonical}`} />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta
-          name="og:description"
-          content="Eclectic design languages for modern era."
-        />
+        <meta name="og:description" content={description} />
         <meta
           property="og:image"
           content="https://res.cloudinary.com/dpfd7jmay/image/upload/v1567080499/samples/board_hrlzgu.jpg"
         />
       </Head>
-      <Article initialData={initialData} />
+      <Article sites={sites} />
     </div>
   );
 };
