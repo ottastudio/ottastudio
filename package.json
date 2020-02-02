@@ -14,6 +14,7 @@
     "start": "next start"
   },
   "dependencies": {
+    "axios": "^0.19.2",
     "dotenv-load": "^2.0.0",
     "mongoose": "^5.8.11",
     "next": "^9.2.1",
@@ -21,6 +22,7 @@
     "next-fonts": "^1.0.3",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
+    "swr": "^0.1.16",
     "ts-mongoose": "^0.0.21",
     "typestyle": "^2.0.4"
   },
