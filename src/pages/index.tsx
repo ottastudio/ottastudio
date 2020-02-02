@@ -12,21 +12,19 @@ const Index: NextPage<{ initialData: any }> = ({ initialData }) => {
     data: { sites }
   } = useRequest({ url: "/api/v1/sites/data" }, { initialData: initialData });
 
-  const description = `${sites.info.description[0]}. ${sites.info.description[1]}`;
-
   const canonical =
     typeof window !== "undefined" && window && window.location.origin;
 
   return (
     <div>
       <Head>
-        <title>{sites.name.full}</title>
+        <title>{sites.info.description[0]}</title>
         <link rel="canonical" href={`${canonical}`} />
-        <meta name="description" content={description} />
-        <meta property="og:title" content="Otta & Studio's" />
+        <meta name="description" content={sites.info.description[1]} />
+        <meta property="og:title" content={sites.info.description[0]} />
         <meta name="og:url" content={`${canonical}`} />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="og:description" content={description} />
+        <meta name="og:description" content={sites.info.description[1]} />
         <meta
           property="og:image"
           content="https://res.cloudinary.com/dpfd7jmay/image/upload/v1567080499/samples/board_hrlzgu.jpg"
