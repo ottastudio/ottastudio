@@ -9,7 +9,7 @@ export const withDB = (handler: any) => async (
 
   mongoose.Promise = global.Promise;
   return await mongoose
-    .connect(process.env.MONGODB_URI, {
+    .connect(process.env.MONGODB_URI as string, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
       useCreateIndex: true,
