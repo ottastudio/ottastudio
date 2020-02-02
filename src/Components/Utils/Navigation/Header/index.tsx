@@ -1,21 +1,8 @@
 import { style } from "typestyle";
-import { useState, useEffect, Fragment } from "react";
+import { useState, useEffect } from "react";
+import Typing from "../../Loader/Typing";
 
 export interface HeaderProps {}
-
-const Dots: React.FC<{}> = () => {
-  return (
-    <Fragment>
-      {Array(3)
-        .fill(1)
-        .map((_item: any, i: number) => (
-          <span key={i} className={`dot dot-${i}`}>
-            .
-          </span>
-        ))}
-    </Fragment>
-  );
-};
 
 const Header: React.FC<HeaderProps> = () => {
   const headerStyle = style({
@@ -41,7 +28,7 @@ const Header: React.FC<HeaderProps> = () => {
         {title.length > 20 ? (
           <span>
             {title.slice(0, 20)}
-            <Dots />
+            <Typing />
           </span>
         ) : (
           title

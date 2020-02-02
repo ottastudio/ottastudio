@@ -1,5 +1,6 @@
 import { style } from "typestyle";
 import TabContext from "../../Tab/TabContext";
+import Typing from "../../../Loader/Typing";
 
 export interface FooterProps {}
 
@@ -15,7 +16,14 @@ const Footer: React.FC<FooterProps> = () => {
   return (
     <TabContext.Consumer>
       {({ sites }) => {
-        const name = sites ? sites.name.full : "Loading...";
+        const name = sites ? (
+          sites.name.full
+        ) : (
+          <span>
+            Loading
+            <Typing />
+          </span>
+        );
         return (
           <footer className={footerStyle}>
             &copy;2015-{new Date().getFullYear()} {name}.
