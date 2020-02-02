@@ -36,6 +36,7 @@ const quoteStyle = style({
 
 const footerStyle = style({
   position: "relative",
+  fontSize: "1rem",
   $nest: {
     "&::before": {
       content: `"©"`,
@@ -60,7 +61,7 @@ const Article: React.FC<{ sites: any }> = ({ sites }) => {
           ))}
       </footer>
 
-      <style jsx>{`
+      <style jsx global>{`
         .dot {
           display: inline-block;
           animation-timing-function: cubic-bezier(0, 1, 1, 0);
