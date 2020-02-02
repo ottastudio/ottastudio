@@ -2,9 +2,12 @@
   "compilerOptions": {
     "target": "es5",
     "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
+      "ES6",
+      "ES2016",
+      "ESNext",
+      "DOM",
+      "DOM.Iterable",
+      "WebWorker"
     ],
     "allowJs": true,
     "checkJs": true,
