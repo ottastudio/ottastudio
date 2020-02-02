@@ -28,7 +28,7 @@ const MyApp: NextPage<AppProps> = ({ Component, pageProps, router }) => {
           background-color: #f5f5f5;
           color: #000000;
 
-          font-family: "Regio Mono" !important;
+          font-family: "Regio Mono", monospace;
           font-feature-settings: "ss03";
         }
       `}</style>
