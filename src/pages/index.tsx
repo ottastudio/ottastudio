@@ -1,15 +1,11 @@
-import { NextPage } from "next";
+import { NextPage, NextPageContext } from "next";
+import Axios from "axios";
 import Head from "next/head";
-import { style } from "typestyle";
 
-const Index: NextPage<{}> = () => {
-  const h1Style = style({
-    position: "absolute",
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%, -50%)"
-  });
+import { useUrlOnServer } from "../lib/hooks/useUrlOnServer";
+import Article from "../Components/Home/Article";
 
+const Index: NextPage<{ initialData: any }> = ({ initialData }) => {
   const canonical =
     typeof window !== "undefined" && window && window.location.origin;
 
@@ -17,14 +13,14 @@ const Index: NextPage<{}> = () => {
     <div>
       <Head>
         <title>Otta &amp; Studio's</title>
-        <link rel="canonical" href={canonical as string} />
+        <link rel="canonical" href={`${canonical}`} />
         <meta
           name="description"
           content="Eclectic design languages for modern era."
         />
 
         <meta property="og:title" content="Otta & Studio's" />
-        <meta name="og:url" content={canonical as string} />
+        <meta name="og:url" content={`${canonical}`} />
         <meta name="twitter:card" content="summary_large_image" />
         <meta
           name="og:description"
@@ -35,9 +31,20 @@ const Index: NextPage<{}> = () => {
           content="https://res.cloudinary.com/dpfd7jmay/image/upload/v1567080499/samples/board_hrlzgu.jpg"
         />
       </Head>
-      <h1 className={h1Style}>Master branch</h1>
+      <Article initialData={initialData} />
     </div>
   );
+};
+
+Index.getInitialProps = async (ctx: NextPageContext) => {
+  const { BASE_URL } = await useUrlOnServer(ctx);
+
+  const res = await Axios.get(`${BASE_URL}/api/v1/sites/data`);
+  const result = await res.data;
+
+  return {
+    initialData: result
+  };
 };
 
 export default Index;
