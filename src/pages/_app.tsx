@@ -17,6 +17,7 @@ const MyApp: NextPage<AppProps> = ({ Component, pageProps, router }) => {
         * {
           outline: none;
           box-sizing: border-box;
+          user-select: none;
 
           -webkit-font-smoothing: antialiased;
           -moz-osx-font-smoothing: grayscale;
@@ -29,7 +30,7 @@ const MyApp: NextPage<AppProps> = ({ Component, pageProps, router }) => {
           color: #000000;
 
           font-family: "Regio Mono", monospace;
-          font-feature-settings: "ss03";
+          font-feature-settings: "ss04";
         }
       `}</style>
     </Fragment>
