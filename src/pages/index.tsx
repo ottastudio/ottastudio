@@ -35,7 +35,7 @@ const Index: NextPage<{}> = () => {
           content="https://res.cloudinary.com/dpfd7jmay/image/upload/v1567080499/samples/board_hrlzgu.jpg"
         />
       </Head>
-      <h1 className={h1Style}>Work in progress</h1>
+      <h1 className={h1Style}>Master branch</h1>
     </div>
   );
 };
