@@ -4,7 +4,7 @@ import Typing from "../Utils/Loader/Typing";
 const articleStyle = style(
   {
     position: "absolute",
-    top: "50%",
+    top: "calc(50% + 1.7rem)",
     left: "50%",
     transform: "translate(-50%, -50%)",
     width: "25%",
