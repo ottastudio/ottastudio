@@ -1,9 +1,11 @@
 import { createContext } from "react";
 
 export interface NavigationProps {
-  sites: any;
+  showContent: boolean;
+  setShowContent: Function;
 }
 
 export default createContext<NavigationProps>({
-  sites: ""
+  showContent: false,
+  setShowContent: () => {}
 });
