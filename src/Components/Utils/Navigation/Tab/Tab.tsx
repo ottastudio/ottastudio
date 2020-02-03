@@ -1,6 +1,6 @@
 import { useContext, ReactElement } from "react";
 import TabContext from "./TabContext";
-import { style } from "typestyle";
+import { style, media } from "typestyle";
 
 export interface TabProps {
   tab: string;
@@ -14,29 +14,32 @@ const Tab: React.FC<TabProps> = ({ tab, children }) => {
 
   let isActive = activeTab === tab;
 
-  const tabStyle = style({
-    $debugName: "tab",
-    width: "50%",
-    fontSize: "1rem",
-    fontFamily: "inherit",
-    background: "none",
-    border: "none",
-    height: 40,
-    cursor: "pointer",
-    color: "currentColor",
-    filter: isActive ? "blur(0px)" : "blur(1px)",
-    textDecoration: isActive ? "underline" : "none",
-    $nest: {
-      "&:hover": {
-        filter: "blur(0px)",
-        textDecoration: "underline"
-      },
-      "&:focus": {
-        filter: "blur(0px)",
-        textDecoration: "1px solid"
+  const tabStyle = style(
+    {
+      $debugName: "tab",
+      width: "50%",
+      fontSize: "1rem",
+      fontFamily: "inherit",
+      background: "none",
+      border: "none",
+      height: 40,
+      cursor: "pointer",
+      color: "currentColor",
+      filter: isActive ? "blur(0px)" : "blur(1px)",
+      textDecoration: isActive ? "underline" : "none",
+      $nest: {
+        "&:hover": {
+          filter: "blur(0px)",
+          textDecoration: "underline"
+        },
+        "&:focus": {
+          filter: "blur(0px)",
+          textDecoration: "1px solid"
+        }
       }
-    }
-  });
+    },
+    media({ maxWidth: 767 }, { fontSize: "0.8rem" })
+  );
 
   return (
     <button

@@ -6,12 +6,15 @@ import { transition } from "../../../../../../lib/misc";
 const ToggleContent: React.FC<{}> = () => {
   const parrentStyle = style(
     {
+      $debugName: "toggle-content",
+      padding: 1,
       backgroundColor: "inherit"
     },
     media({ maxWidth: 767 }, { display: "none" })
   );
   const toggleActive = (active: boolean) =>
     style({
+      $debugName: "toggle-label",
       fontSize: "2rem",
       fontWeight: 200,
       paddingBottom: 3,
@@ -22,17 +25,26 @@ const ToggleContent: React.FC<{}> = () => {
       display: "flex",
       alignItems: "center",
       justifyContent: "center",
-      borderRadius: active ? "0%" : "100%",
-      transform: active ? "rotate(-180deg)" : "rotate(0deg)",
-      transition: `transform ${transition.main}, border-radius ${transition.main}`
+      backgroundColor: active ? "lime" : "transparent",
+      borderRadius: active ? "100%" : "0%",
+      transform: active
+        ? "rotate(180deg) scale(0.85)"
+        : "rotate(0deg) scale(1)",
+      transition: `transform ${transition.main}, border-radius ${transition.main}, background-color ${transition.main}`,
+      $nest: {
+        "&:hover": {
+          backgroundColor: "lime"
+        }
+      }
     });
   return (
     <NavigationContext.Consumer>
-      {({ showContent, setShowContent }) => (
+      {({ showContent, setShowContent, setDisable }) => (
         <span
           className={`${toggleContent} ${parrentStyle}`}
-          style={{ padding: 1 }}
           onClick={() => setShowContent(!showContent)}
+          onMouseOver={() => setDisable(true)}
+          onMouseLeave={() => setDisable(false)}
         >
           <label className={`${toggleActive(showContent)}`}>&darr;</label>
         </span>

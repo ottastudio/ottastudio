@@ -11,13 +11,14 @@ const Footer: React.FC<FooterProps> = () => {
     display: "flex",
     alignItems: "center",
     padding: "0px 10px",
-    fontSize: 12
+    fontSize: 12,
+    whiteSpace: "pre"
   });
   return (
     <TabContext.Consumer>
       {({ sites }) => {
         const name = sites ? (
-          sites.name.full
+          `${sites.name.full}.`
         ) : (
           <span>
             Loading
@@ -26,7 +27,7 @@ const Footer: React.FC<FooterProps> = () => {
         );
         return (
           <footer className={footerStyle}>
-            &copy;2015-{new Date().getFullYear()} {name}.
+            &copy;2015-{new Date().getFullYear()} {name}
           </footer>
         );
       }}

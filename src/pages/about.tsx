@@ -1,12 +1,23 @@
 import { NextPage } from "next";
 import Head from "next/head";
+import { style } from "typestyle";
 
 const Index: NextPage<{}> = () => {
   const canonical =
     typeof window !== "undefined" && window && window.location.origin;
 
+  const divStyle = style({
+    $debugName: "container",
+    minHeight: "100vh",
+    position: "relative"
+  });
+  const h1Style = style({
+    margin: 0,
+    padding: 20
+  });
+
   return (
-    <div>
+    <div className={divStyle}>
       <Head>
         <title>About</title>
         <link rel="canonical" href={`${canonical}/about`} />
@@ -20,7 +31,7 @@ const Index: NextPage<{}> = () => {
           content="https://res.cloudinary.com/dpfd7jmay/image/upload/v1567080499/samples/board_hrlzgu.jpg"
         />
       </Head>
-      <h1>About</h1>
+      <h1 className={h1Style}>About</h1>
     </div>
   );
 };

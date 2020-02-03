@@ -1,10 +1,11 @@
 import { NextPage, NextPageContext, NextComponentType } from "next";
 import { Fragment } from "react";
 import { NextRouter } from "next/router";
+import { transition } from "../lib/misc";
 
 import Navigation from "../Components/Utils/Navigation";
 import NProgress from "../Components/Utils/Loader/NProgress";
-import { transition } from "../lib/misc";
+import Footer from "../Components/Utils/Footer";
 
 interface AppProps {
   Component: NextComponentType;
@@ -18,6 +19,7 @@ const MyApp: NextPage<AppProps> = ({ Component, pageProps, router }) => {
       <Navigation />
       <Component {...pageProps} key={router.asPath} />
       <NProgress />
+      <Footer />
 
       <style jsx global>{`
         * {
@@ -32,10 +34,14 @@ const MyApp: NextPage<AppProps> = ({ Component, pageProps, router }) => {
           padding: 0;
           margin: 0;
           min-height: 100vh;
+          position: relative;
 
           font-family: "Regio Mono", monospace;
           font-feature-settings: "ss04";
           font-size: 1.5rem;
+
+          /*overscroll-behavior: auto none;*/
+          scroll-behavior: smooth;
 
           background-color: #f5f5f5;
           color: #000000;

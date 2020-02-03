@@ -1,4 +1,5 @@
 import { NextPage, NextPageContext } from "next";
+import { style } from "typestyle";
 import Axios from "axios";
 import Head from "next/head";
 
@@ -15,8 +16,14 @@ const Index: NextPage<{ initialData: any }> = ({ initialData }) => {
   const canonical =
     typeof window !== "undefined" && window && window.location.origin;
 
+  const divStyle = style({
+    $debugName: "container",
+    minHeight: "100vh",
+    position: "relative"
+  });
+
   return (
-    <div>
+    <div className={divStyle}>
       <Head>
         <title>{sites.info.description[0]}</title>
         <link rel="canonical" href={`${canonical}`} />
