@@ -7,7 +7,7 @@ import { useUrlOnServer } from "../lib/hooks/useUrlOnServer";
 
 import Article from "../Components/Utils/Article";
 
-const About: NextPage<{ initialData: any; BASE_URL: string }> = ({
+const Studio: NextPage<{ initialData: any; BASE_URL: string }> = ({
   initialData,
   BASE_URL
 }) => {
@@ -28,10 +28,10 @@ const About: NextPage<{ initialData: any; BASE_URL: string }> = ({
     <div className={divStyle}>
       <Head>
         <title>{title}</title>
-        <link rel="canonical" href={`${BASE_URL}/about`} />
+        <link rel="canonical" href={`${BASE_URL}/studio`} />
         <meta name="description" content={description} />
         <meta property="og:title" content={title} />
-        <meta name="og:url" content={`${BASE_URL}/about`} />
+        <meta name="og:url" content={`${BASE_URL}/studio`} />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="og:description" content={description} />
         <meta
@@ -49,7 +49,7 @@ const About: NextPage<{ initialData: any; BASE_URL: string }> = ({
   );
 };
 
-About.getInitialProps = async (ctx: NextPageContext) => {
+Studio.getInitialProps = async (ctx: NextPageContext) => {
   const { BASE_URL } = await useUrlOnServer(ctx);
 
   const res = await Axios.get(`${BASE_URL}/api/v1/sites/data`);
@@ -61,4 +61,4 @@ About.getInitialProps = async (ctx: NextPageContext) => {
   };
 };
 
-export default About;
+export default Studio;
