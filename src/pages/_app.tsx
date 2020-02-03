@@ -6,6 +6,7 @@ import { transition } from "../lib/misc";
 import Navigation from "../Components/Utils/Navigation";
 import NProgress from "../Components/Utils/Loader/NProgress";
 import Footer from "../Components/Utils/Footer";
+import OnlineIndicator from "../Components/Utils/Loader/OnlineIndicator";
 
 interface AppProps {
   Component: NextComponentType;
@@ -16,6 +17,7 @@ interface AppProps {
 const MyApp: NextPage<AppProps> = ({ Component, pageProps, router }) => {
   return (
     <Fragment>
+      <OnlineIndicator />
       <Navigation />
       <Component {...pageProps} key={router.asPath} />
       <NProgress />
@@ -74,7 +76,7 @@ const MyApp: NextPage<AppProps> = ({ Component, pageProps, router }) => {
           color: #d4d4d4;
         }
 
-        @media screen and (max-width: 767px){
+        @media screen and (max-width: 767px) {
           .link {
             font-size: 2rem;
           }
