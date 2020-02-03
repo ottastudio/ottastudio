@@ -4,12 +4,18 @@ import Router from "next/router";
 
 let timeout: any;
 
+const originalScroll =
+  typeof window !== "undefined" &&
+  window?.getComputedStyle(document.body).overflow;
+
 const start = () => {
+  document.body.style.overflow = "hidden";
   timeout = setTimeout(NProgress.start, 100);
 };
 const done = () => {
   clearTimeout(timeout);
   NProgress.done();
+  document.body.style.overflow = originalScroll as string;
 };
 
 Router.events.on("routeChangeStart", () => start());
