@@ -4,6 +4,7 @@ import { NextRouter } from "next/router";
 
 import Navigation from "../Components/Utils/Navigation";
 import NProgress from "../Components/Utils/Loader/NProgress";
+import { transition } from "../lib/misc";
 
 interface AppProps {
   Component: NextComponentType;
@@ -32,16 +33,15 @@ const MyApp: NextPage<AppProps> = ({ Component, pageProps, router }) => {
           margin: 0;
           min-height: 100vh;
 
-          background-color: #f5f5f5;
-          color: #000000;
-          /*background-color: #151515;
-          color: lime;*/
-          background-color: #808080;
-          color: #d4d4d4;
-
           font-family: "Regio Mono", monospace;
           font-feature-settings: "ss04";
           font-size: 1.5rem;
+
+          background-color: #f5f5f5;
+          color: #000000;
+
+          transition: background-color ${transition.main},
+            color ${transition.main};
         }
         a {
           text-decoration: none;
@@ -57,6 +57,38 @@ const MyApp: NextPage<AppProps> = ({ Component, pageProps, router }) => {
         .link:hover,
         .link-active {
           text-decoration: underline;
+        }
+
+        .theme-light {
+          background-color: #f5f5f5;
+          color: #000000;
+        }
+        .theme-dark {
+          background-color: #808080;
+          color: #d4d4d4;
+        }
+
+        @media (prefers-color-scheme: light) {
+          body,
+          .theme-light {
+            background-color: #f5f5f5;
+            color: #000000;
+          }
+          .theme-dark {
+            background-color: #808080;
+            color: #d4d4d4;
+          }
+        }
+        @media (prefers-color-scheme: dark) {
+          body,
+          .theme-light {
+            background-color: #d4d4d4;
+            color: #000000;
+          }
+          .theme-dark {
+            background-color: #151515;
+            color: #d4d4d4;
+          }
         }
       `}</style>
     </Fragment>
