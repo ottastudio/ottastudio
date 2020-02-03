@@ -1,39 +1,64 @@
-import { NextPage } from "next";
+import { NextPage, NextPageContext } from "next";
 import Head from "next/head";
+import Axios from "axios";
+import useRequest from "../lib/hooks/useRequest";
 import { style } from "typestyle";
+import { useUrlOnServer } from "../lib/hooks/useUrlOnServer";
 
-const Index: NextPage<{}> = () => {
-  const canonical =
-    typeof window !== "undefined" && window && window.location.origin;
+import Article from "../Components/Utils/Article";
+
+const About: NextPage<{ initialData: any; BASE_URL: string }> = ({
+  initialData,
+  BASE_URL
+}) => {
+  const {
+    data: { sites }
+  } = useRequest({ url: "/api/v1/sites/data" }, { initialData: initialData });
 
   const divStyle = style({
     $debugName: "container",
     minHeight: "100vh",
     position: "relative"
   });
-  const h1Style = style({
-    margin: 0,
-    padding: 20
-  });
+
+  const title = sites.name.full;
+  const description = sites.info.description[2];
 
   return (
     <div className={divStyle}>
       <Head>
-        <title>About</title>
-        <link rel="canonical" href={`${canonical}/about`} />
-        <meta name="description" content="Mantap about" />
-        <meta property="og:title" content="About" />
-        <meta name="og:url" content={`${canonical}/about`} />
+        <title>{title}</title>
+        <link rel="canonical" href={`${BASE_URL}/about`} />
+        <meta name="description" content={description} />
+        <meta property="og:title" content={title} />
+        <meta name="og:url" content={`${BASE_URL}/about`} />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="og:description" content="Mantap about" />
+        <meta name="og:description" content={description} />
         <meta
           property="og:image"
           content="https://res.cloudinary.com/dpfd7jmay/image/upload/v1567080499/samples/board_hrlzgu.jpg"
         />
       </Head>
-      <h1 className={h1Style}>About</h1>
+      <Article
+        sites={sites}
+        header="Prologue"
+        paragraph={`"${title}", ${description}`}
+        footer
+      />
     </div>
   );
 };
 
-export default Index;
+About.getInitialProps = async (ctx: NextPageContext) => {
+  const { BASE_URL } = await useUrlOnServer(ctx);
+
+  const res = await Axios.get(`${BASE_URL}/api/v1/sites/data`);
+  const result = await res.data;
+
+  return {
+    initialData: result,
+    BASE_URL
+  };
+};
+
+export default About;

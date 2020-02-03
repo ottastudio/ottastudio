@@ -6,15 +6,15 @@ import Head from "next/head";
 import { useUrlOnServer } from "../lib/hooks/useUrlOnServer";
 import useRequest from "../lib/hooks/useRequest";
 
-import Article from "../Components/Home/Article";
+import Article from "../Components/Utils/Article";
 
-const Index: NextPage<{ initialData: any }> = ({ initialData }) => {
+const Index: NextPage<{ initialData: any; BASE_URL: string }> = ({
+  initialData,
+  BASE_URL
+}) => {
   const {
     data: { sites }
   } = useRequest({ url: "/api/v1/sites/data" }, { initialData: initialData });
-
-  const canonical =
-    typeof window !== "undefined" && window && window.location.origin;
 
   const divStyle = style({
     $debugName: "container",
@@ -22,22 +22,25 @@ const Index: NextPage<{ initialData: any }> = ({ initialData }) => {
     position: "relative"
   });
 
+  const title = sites.info.description[0];
+  const description = sites.info.description[1];
+
   return (
     <div className={divStyle}>
       <Head>
-        <title>{sites.info.description[0]}</title>
-        <link rel="canonical" href={`${canonical}`} />
-        <meta name="description" content={sites.info.description[1]} />
-        <meta property="og:title" content={sites.info.description[0]} />
-        <meta name="og:url" content={`${canonical}`} />
+        <title>{title}</title>
+        <link rel="canonical" href={`${BASE_URL}`} />
+        <meta name="description" content={description} />
+        <meta property="og:title" content={title} />
+        <meta name="og:url" content={`${BASE_URL}`} />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="og:description" content={sites.info.description[1]} />
+        <meta name="og:description" content={description} />
         <meta
           property="og:image"
           content="https://res.cloudinary.com/dpfd7jmay/image/upload/v1567080499/samples/board_hrlzgu.jpg"
         />
       </Head>
-      <Article sites={sites} />
+      <Article sites={sites} header={title} footer />
     </div>
   );
 };
@@ -49,7 +52,8 @@ Index.getInitialProps = async (ctx: NextPageContext) => {
   const result = await res.data;
 
   return {
-    initialData: result
+    initialData: result,
+    BASE_URL
   };
 };
 
