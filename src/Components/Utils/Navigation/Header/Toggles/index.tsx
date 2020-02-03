@@ -14,7 +14,9 @@ export const toggleContent = style({
   justifyContent: "center",
   borderLeft: "1px solid",
   position: "relative",
-  overflow: "hidden"
+  overflow: "hidden",
+  backgroundColor: "inherit",
+  color: "inherit"
 });
 
 const Toggles: React.FC<TogglesProps> = () => {
@@ -23,7 +25,9 @@ const Toggles: React.FC<TogglesProps> = () => {
     width: "33.33%",
     height: "100%",
     display: "flex",
-    justifyContent: "space-between"
+    justifyContent: "space-between",
+    backgroundColor: "inherit",
+    color: "inherit"
   });
   return (
     <span className={togglesStyle}>

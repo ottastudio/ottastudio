@@ -1,8 +1,14 @@
 import Tab from "../../Tab/Tab";
 import TabContext from "../../Tab/TabContext";
 import Typing from "../../../Loader/Typing";
+import { style } from "typestyle";
 
 const Tabs: React.FC<{}> = () => {
+  const divStyle = style({
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "flex-start"
+  });
   return (
     <TabContext.Consumer>
       {({ sites }) => {
@@ -12,7 +18,7 @@ const Tabs: React.FC<{}> = () => {
           { tab: "projects", label: "Projects" }
         ];
         return (
-          <div>
+          <div className={divStyle}>
             {tabs.map(({ tab, label }) => (
               <Tab key={tab} tab={tab} tag="span">
                 {label === null ? (

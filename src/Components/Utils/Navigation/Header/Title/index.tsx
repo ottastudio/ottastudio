@@ -6,14 +6,14 @@ import Typing from "../../../Loader/Typing";
 import NavigationContext from "../../NavigationContext";
 
 const Title: React.FC<{}> = () => {
+  const { title } = useDocTitle();
+  const { width } = useWindowDimension();
+  const isPhone = width <= 767 ? true : false;
+
   const spanStyle = style({
     $debugName: "navigation-title",
     width: "66.66%"
   });
-
-  const { title } = useDocTitle();
-  const { width } = useWindowDimension();
-  const isPhone = width <= 767 ? true : false;
 
   return (
     <NavigationContext.Consumer>

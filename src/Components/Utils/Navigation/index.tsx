@@ -54,7 +54,7 @@ const Navigation: React.FC<{}> = () => {
   const isPhone = width <= 767 ? true : false;
 
   const [disable, setDisable] = useState(isPhone);
-  const [showContent, setShowContent] = useState(false);
+  const [showContent, setShowContent] = useState(true);
   useOnClickOutside(navRef, () => setShowContent(false));
 
   useEffect(() => {

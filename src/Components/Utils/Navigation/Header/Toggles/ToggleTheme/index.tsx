@@ -62,6 +62,9 @@ const ToggleTheme: React.FC<ToggleThemeProps> = () => {
               vertical-align: 2px;
               outline: none;
               border: none;
+              background: none;
+              background-color: inherit;
+              color: inherit;
               -webkit-appearance: none;
               -moz-appearance: none;
             }
@@ -74,13 +77,11 @@ const ToggleTheme: React.FC<ToggleThemeProps> = () => {
               background-color: currentColor;
               border: none;
               cursor: pointer;
-              /*border-radius: 100%;*/
               transition: left ${transition.main},
                 border-radius ${transition.main};
             }
             input[type="checkbox"].dm-check:checked + label {
               left: calc(50% + 1px);
-              /*border-radius: 0%;*/
             }
           `}</style>
         </span>

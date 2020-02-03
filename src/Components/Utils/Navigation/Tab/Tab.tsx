@@ -25,6 +25,7 @@ const Tab: React.FC<TabProps> = ({ tab, children }) => {
       height: 40,
       cursor: "pointer",
       color: "currentColor",
+      padding: 0,
       filter: isActive ? "blur(0px)" : "blur(1px)",
       textDecoration: isActive ? "underline" : "none",
       $nest: {
@@ -38,7 +39,7 @@ const Tab: React.FC<TabProps> = ({ tab, children }) => {
         }
       }
     },
-    media({ maxWidth: 767 }, { fontSize: "0.8rem" })
+    media({ maxWidth: 767 }, { height: 60 })
   );
 
   return (

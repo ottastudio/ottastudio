@@ -74,6 +74,12 @@ const MyApp: NextPage<AppProps> = ({ Component, pageProps, router }) => {
           color: #d4d4d4;
         }
 
+        @media screen and (max-width: 767px){
+          .link {
+            font-size: 2rem;
+          }
+        }
+
         @media (prefers-color-scheme: light) {
           body,
           .theme-light {
