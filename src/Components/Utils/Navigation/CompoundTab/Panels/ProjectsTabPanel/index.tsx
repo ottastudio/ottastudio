@@ -1,11 +1,9 @@
 import TabPanel from "../../../Tab/TabPanel";
 
-export interface ProjectsTabPanelProps {}
-
-const ProjectsTabPanel: React.FC<ProjectsTabPanelProps> = () => {
+const ProjectsTabPanel: React.FC<{}> = () => {
   return (
     <TabPanel whenActive="projects">
-      <div>Projects</div>
+      <div style={{ minHeight: 200 }}>Projects</div>
     </TabPanel>
   );
 };

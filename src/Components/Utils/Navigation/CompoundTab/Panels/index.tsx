@@ -1,10 +1,8 @@
+import { style } from "typestyle";
 import IndexTabPanel from "./IndexTabPanel";
 import ProjectsTabPanel from "./ProjectsTabPanel";
-import { style } from "typestyle";
 
-export interface PanelsProps {}
-
-const Panels: React.FC<PanelsProps> = () => {
+const Panels: React.FC<{}> = () => {
   const divStyle = style({
     padding: "0px 10px",
     minHeight: 80
