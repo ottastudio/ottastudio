@@ -1,11 +1,12 @@
 import Tab from "../../Tab/Tab";
 import TabContext from "../../Tab/TabContext";
+import Typing from "../../../Loader/Typing";
 
 const Tabs: React.FC<{}> = () => {
   return (
     <TabContext.Consumer>
       {({ sites }) => {
-        const name = sites ? sites.name.full : "Loading...";
+        const name = sites ? sites.name.full : null;
         const tabs = [
           { tab: "index", label: name },
           { tab: "projects", label: "Projects" }
@@ -14,7 +15,14 @@ const Tabs: React.FC<{}> = () => {
           <div>
             {tabs.map(({ tab, label }) => (
               <Tab key={tab} tab={tab} tag="span">
-                {label}
+                {label === null ? (
+                  <span>
+                    Loading
+                    <Typing />
+                  </span>
+                ) : (
+                  label
+                )}
               </Tab>
             ))}
           </div>
