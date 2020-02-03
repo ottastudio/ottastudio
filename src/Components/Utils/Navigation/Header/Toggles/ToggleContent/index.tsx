@@ -12,8 +12,8 @@ const ToggleContent: React.FC<{}> = () => {
   );
   const toggleActive = (active: boolean) =>
     style({
-      fontSize: "3.5rem",
-      fontWeight: 300,
+      fontSize: "2rem",
+      fontWeight: 200,
       paddingBottom: 3,
       cursor: "inherit",
       border: "1px solid",
