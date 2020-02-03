@@ -1,3 +1,7 @@
+export const transition = {
+  main: `300ms cubic-bezier(1,0,0,1)`
+};
+
 export const staticLinks = [
   { name: "Index", to: "/" },
   { name: "About", to: "/about" }
