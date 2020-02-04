@@ -12,7 +12,10 @@ const Footer: React.FC<FooterProps> = () => {
     alignItems: "center",
     padding: "0px 10px",
     fontSize: 12,
-    whiteSpace: "pre"
+    whiteSpace: "pre",
+    position: "absolute",
+    bottom: 0,
+    left: 0
   });
   return (
     <TabContext.Consumer>
