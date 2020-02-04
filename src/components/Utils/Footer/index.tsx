@@ -8,11 +8,13 @@ const Footer: React.FC<FooterProps> = () => {
     height: "50vh",
     overflow: "hidden",
     position: "relative",
-    backgroundColor: "inherit",
-    color: "inherit",
+    backgroundColor: "#ffffff",
+    color: "#000000",
     display: "flex",
     alignItems: "center",
-    justifyContent: "center"
+    justifyContent: "center",
+    filter: "invert(1)",
+    mixBlendMode: "difference"
   });
   return <footer className={footerStyle}>App Footer</footer>;
 };
