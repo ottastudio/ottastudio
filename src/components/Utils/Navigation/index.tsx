@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { style, media } from "typestyle";
 import Drag from "react-draggable";
+import Router from "next/router";
 
 import { useOnClickOutside } from "../../../lib/hooks/useOnClickOutside";
 import { useWindowDimension } from "../../../lib/hooks/useWindowDimension";
@@ -58,7 +59,9 @@ const Navigation: React.FC<{}> = () => {
 
   useEffect(() => {
     // async simulated to avoid memory leak
-    const closeContent = setTimeout(() => {}, 300);
+    const closeContent = setTimeout(() => {
+      Router.events.on("routeChangeComplete", () => setShowContent(false));
+    }, 300);
     return () => clearTimeout(closeContent);
   });
 
