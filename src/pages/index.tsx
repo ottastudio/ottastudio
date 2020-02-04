@@ -1,11 +1,17 @@
 import { NextPage, NextPageContext } from "next";
+import { Fragment } from "react";
 import Axios from "axios";
 import Head from "next/head";
+import dynamic from "next/dynamic";
 
 import { useUrlOnServer } from "../lib/hooks/useUrlOnServer";
 import useRequest from "../lib/hooks/useRequest";
 
 import Article from "../components/Home/Article";
+
+const Cube = dynamic(() => import("../components/Sandbox/Cube"), {
+  ssr: false
+});
 
 const Index: NextPage<{ initialData: any }> = ({ initialData }) => {
   const {
@@ -18,7 +24,7 @@ const Index: NextPage<{ initialData: any }> = ({ initialData }) => {
     typeof window !== "undefined" && window && window.location.origin;
 
   return (
-    <div>
+    <Fragment>
       <Head>
         <title>{sites.name.full}</title>
         <link rel="canonical" href={`${canonical}`} />
@@ -33,7 +39,8 @@ const Index: NextPage<{ initialData: any }> = ({ initialData }) => {
         />
       </Head>
       <Article sites={sites} />
-    </div>
+      <Cube />
+    </Fragment>
   );
 };
 

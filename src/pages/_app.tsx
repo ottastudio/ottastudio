@@ -32,6 +32,10 @@ const MyApp: NextPage<AppProps> = ({ Component, pageProps, router }) => {
           font-family: "Regio Mono", monospace;
           font-feature-settings: "ss04";
         }
+        #__next {
+          background-color: inherit;
+          color: inherit;
+        }
       `}</style>
     </Fragment>
   );

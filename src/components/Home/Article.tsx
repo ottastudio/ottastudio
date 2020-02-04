@@ -1,5 +1,12 @@
 import { style, media } from "typestyle";
 
+const divStyle = style({
+  backgroundColor: "inherit",
+  color: "inherit",
+  position: "relative",
+  height: "100vh"
+});
+
 const articleStyle = style(
   {
     position: "absolute",
@@ -7,7 +14,9 @@ const articleStyle = style(
     left: "50%",
     transform: "translate(-50%, -50%)",
     width: "25%",
-    padding: 20
+    padding: 20,
+    backgroundColor: "inherit",
+    color: "inherit"
   },
   media({ maxWidth: 1366, minWidth: 768 }, { width: "66.66%" }),
   media(
@@ -47,25 +56,30 @@ const footerStyle = style({
 
 const Article: React.FC<{ sites: any }> = ({ sites }) => {
   return (
-    <article className={articleStyle}>
-      <h1 className={quoteStyle}>{sites.info.description[0]}</h1>
-      <footer className={footerStyle}>
-        {new Date().getFullYear()} {sites.name.full}. Work in progress
-        {Array(3)
-          .fill(1)
-          .map((_item: any, i: number) => (
-            <span key={i} className={`dot dot-${i}`}>
-              .
-            </span>
-          ))}
-        <p>
-          You could visit our progress on{" "}
-          <a href="https://dev.ottastudio.com/" target="_blank" rel="noopener">
-            dev.ottastudio.com
-          </a>
-        </p>
-      </footer>
-
+    <div className={divStyle}>
+      <article className={articleStyle}>
+        <h1 className={quoteStyle}>{sites.info.description[0]}</h1>
+        <footer className={footerStyle}>
+          {new Date().getFullYear()} {sites.name.full}. Work in progress
+          {Array(3)
+            .fill(1)
+            .map((_item: any, i: number) => (
+              <span key={i} className={`dot dot-${i}`}>
+                .
+              </span>
+            ))}
+          <p>
+            You could visit our progress on{" "}
+            <a
+              href="https://dev.ottastudio.com/"
+              target="_blank"
+              rel="noopener"
+            >
+              dev.ottastudio.com
+            </a>
+          </p>
+        </footer>
+      </article>
       <style jsx>{`
         a {
           color: inherit;
@@ -130,7 +144,7 @@ const Article: React.FC<{ sites: any }> = ({ sites }) => {
           }
         }
       `}</style>
-    </article>
+    </div>
   );
 };
 
