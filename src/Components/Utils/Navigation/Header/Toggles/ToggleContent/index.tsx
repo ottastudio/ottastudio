@@ -25,7 +25,7 @@ const ToggleContent: React.FC<{}> = () => {
       display: "flex",
       alignItems: "center",
       justifyContent: "center",
-      backgroundColor: active ? "lime" : "transparent",
+      backgroundColor: active ? "coral" : "transparent",
       borderRadius: active ? "100%" : "0%",
       transform: active
         ? "rotate(180deg) scale(0.85)"
@@ -33,7 +33,7 @@ const ToggleContent: React.FC<{}> = () => {
       transition: `transform ${transition.main}, border-radius ${transition.main}, background-color ${transition.main}`,
       $nest: {
         "&:hover": {
-          backgroundColor: "lime"
+          backgroundColor: "coral"
         }
       }
     });
