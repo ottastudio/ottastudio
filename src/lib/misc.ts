@@ -10,3 +10,9 @@ export const staticLinks = [
   // { name: "Exhibition", to: "/exhibition" },
   // { name: "Privacy Policy", to: "/policy" }
 ];
+
+export const userLinks = [{ name: "Login", to: "/user/login" }];
+export const adminLinks = [
+  { name: "Dashboard", to: "/user/dashboard" }
+  // { name: "Project", to: "/user/dashboard/project" }
+];
