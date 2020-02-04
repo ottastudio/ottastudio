@@ -15,8 +15,11 @@ export const withDB = (handler: any) => async (
       useCreateIndex: true,
       useFindAndModify: true
     })
-    .then(() => {
+    .then(responseDB => {
       console.log(`🚀 CONNECTION TO MONGODB ESTABLISHED`);
+      console.log(
+        `💾 ${responseDB.connections[0].host}:${responseDB.connections[0].port}/${responseDB.connections[0].name}`
+      );
       return handler(req, res);
     })
     .catch(err => {
