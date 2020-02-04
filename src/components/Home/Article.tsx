@@ -58,9 +58,30 @@ const Article: React.FC<{ sites: any }> = ({ sites }) => {
               .
             </span>
           ))}
+        <p>
+          You could visit our progress on{" "}
+          <a href="https://dev.ottastudio.com/" target="_blank" rel="noopener">
+            dev.ottastudio.com
+          </a>
+        </p>
       </footer>
 
       <style jsx>{`
+        a {
+          color: inherit;
+          text-decoration: none;
+        }
+        a:hover {
+          text-decoration: underline;
+        }
+        p {
+          font-size: 12px;
+        }
+        p::before {
+          content: "*";
+          position: absolute;
+          left: -0.7rem;
+        }
         .dot {
           display: inline-block;
           animation-timing-function: cubic-bezier(0, 1, 1, 0);
