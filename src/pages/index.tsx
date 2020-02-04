@@ -5,7 +5,7 @@ import Head from "next/head";
 import { useUrlOnServer } from "../lib/hooks/useUrlOnServer";
 import useRequest from "../lib/hooks/useRequest";
 
-import Article from "../Components/Home/Article";
+import Article from "../components/Home/Article";
 
 const Index: NextPage<{ initialData: any }> = ({ initialData }) => {
   const {
