@@ -21,6 +21,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
     fontFamily: "inherit",
     fontSize: "inherit",
     cursor: "pointer",
+    border: "1px solid",
     borderRadius: 50,
     padding: "0px 15px",
     transition: `background-color ${transition.main}`,
