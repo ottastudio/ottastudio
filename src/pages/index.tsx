@@ -7,6 +7,7 @@ import { useUrlOnServer } from "../lib/hooks/useUrlOnServer";
 import useRequest from "../lib/hooks/useRequest";
 
 import Article from "../components/Utils/Article";
+import Cube from "../components/Sandbox/Cube";
 
 const Index: NextPage<{ initialData: any; BASE_URL: string }> = ({
   initialData,
@@ -41,6 +42,7 @@ const Index: NextPage<{ initialData: any; BASE_URL: string }> = ({
         />
       </Head>
       <Article sites={sites} header={title} footer />
+      <Cube />
     </div>
   );
 };
