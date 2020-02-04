@@ -14,7 +14,9 @@ const Header: React.FC<{}> = () => {
       fontSize: "1rem",
       padding: "0px 0px 0px 10px",
       backgroundColor: "inherit",
-      color: "inherit"
+      color: "inherit",
+      position: "relative",
+      zIndex: 10
     },
     media({ maxWidth: 767 }, { height: 60 })
   );

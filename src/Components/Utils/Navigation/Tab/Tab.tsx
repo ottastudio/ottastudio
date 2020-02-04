@@ -14,7 +14,25 @@ const Tab: React.FC<TabProps> = ({ tab, children }) => {
 
   let isActive = activeTab === tab;
 
+  const customActive = {
+    borderLeft:
+      isActive && activeTab === "projects"
+        ? "1px solid currentColor"
+        : "1px solid transparent",
+    borderRight:
+      isActive && activeTab === "index"
+        ? "1px solid currentColor"
+        : "1px solid transparent",
+    backgroundColor:
+      isActive && activeTab === "projects"
+        ? "lightsalmon"
+        : isActive && activeTab === "index"
+        ? "coral"
+        : "inherit"
+  };
+
   const tabStyle = style(
+    customActive,
     {
       $debugName: "tab",
       width: "50%",
@@ -25,19 +43,8 @@ const Tab: React.FC<TabProps> = ({ tab, children }) => {
       height: 40,
       cursor: "pointer",
       color: "currentColor",
-      padding: 0,
-      filter: isActive ? "blur(0px)" : "blur(1px)",
-      textDecoration: isActive ? "underline" : "none",
-      $nest: {
-        "&:hover": {
-          filter: "blur(0px)",
-          textDecoration: "underline"
-        },
-        "&:focus": {
-          filter: "blur(0px)",
-          textDecoration: "1px solid"
-        }
-      }
+      padding: "0px 0px 0px 10px",
+      textAlign: "left"
     },
     media({ maxWidth: 767 }, { height: 60 })
   );

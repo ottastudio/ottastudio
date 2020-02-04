@@ -1,14 +1,25 @@
-import TabPanel from "../../../Tab/TabPanel";
-import { NavlinkRegular } from "../../../../NavLink";
 import { Fragment } from "react";
+import { style } from "typestyle";
+
 import { staticLinks } from "../../../../../../lib/misc";
+import { NavlinkRegular } from "../../../../NavLink";
+
+import TabPanel from "../../../Tab/TabPanel";
 
 export interface IndexTabPanelProps {}
 
 const IndexTabPanel: React.FC<IndexTabPanelProps> = () => {
+  const divStyle = style({
+    $debugName: "index-panel",
+    minHeight: 120,
+    padding: "10px 10px 40px 10px",
+    backgroundColor: "coral",
+    borderTop: "1px solid",
+    marginTop: -1
+  });
   return (
     <TabPanel whenActive="index">
-      <Fragment>
+      <div className={divStyle}>
         {staticLinks.map(({ name, to }, i: number) => (
           <Fragment key={i}>
             <NavlinkRegular href={to} activeClassName="link-active">
@@ -17,7 +28,7 @@ const IndexTabPanel: React.FC<IndexTabPanelProps> = () => {
             <span>{i >= staticLinks.length - 1 ? "." : ", "}</span>
           </Fragment>
         ))}
-      </Fragment>
+      </div>
     </TabPanel>
   );
 };

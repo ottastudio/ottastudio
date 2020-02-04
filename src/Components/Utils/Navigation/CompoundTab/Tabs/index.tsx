@@ -26,8 +26,13 @@ const Tabs: React.FC<{}> = () => {
                     Loading
                     <Typing />
                   </span>
+                ) : label.length > 13 ? (
+                  <span>
+                    {label.slice(0, 13)}
+                    <Typing />
+                  </span>
                 ) : (
-                  label
+                  `${label}.`
                 )}
               </Tab>
             ))}

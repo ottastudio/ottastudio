@@ -1,8 +1,6 @@
 import { useRouter } from "next/router";
 import { style } from "typestyle";
 
-import { transition } from "../../../../lib/misc";
-
 import NavigationContext from "../NavigationContext";
 import TabBar from "../Tab/TabBar";
 import Panels from "./Panels";
@@ -13,15 +11,15 @@ const CompoundTab: React.FC<{}> = () => {
   const { pathname } = useRouter();
   const activeTab = pathname === "/projects/[name]" ? "projects" : "index";
 
-  const divStyle = (show: boolean) =>
-    style({
+  const divStyle = (show: boolean) => {
+    return style({
       $debugName: "navigation-content",
       position: "relative",
       overflow: "hidden",
       marginTop: -1,
-      height: show ? "auto" : 0,
-      transition: `height ${transition.main}`
+      height: show ? "auto" : 0
     });
+  };
 
   return (
     <NavigationContext.Consumer>
