@@ -1,8 +1,9 @@
 {
-  "name": "ottastudio-website-v4",
+  "name": "ottastudio",
   "alias": [
     "ottastudio.com",
-    "ottastudio-website-v4"
+    "dev.ottastudio.com",
+    "ottastudio"
   ],
   "version": 2,
   "builds": [
