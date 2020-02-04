@@ -1,6 +1,6 @@
 import { useContext, ReactElement } from "react";
-import TabContext from "./TabContext";
 import { style, media } from "typestyle";
+import TabContext from "./TabContext";
 
 export interface TabProps {
   tab: string;

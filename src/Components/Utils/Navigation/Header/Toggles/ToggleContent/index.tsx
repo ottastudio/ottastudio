@@ -1,5 +1,5 @@
 import NavigationContext from "../../../NavigationContext";
-import { toggleContent } from "./..";
+import { toggleContent } from "..";
 import { style, media } from "typestyle";
 import { transition } from "../../../../../../lib/misc";
 

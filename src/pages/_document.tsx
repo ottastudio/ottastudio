@@ -8,7 +8,6 @@ export default class MyDocument extends Document {
         <Head>
           <link rel="icon" type="image/x-icon" href="/static/favicon.ico" />
           <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
-          <link rel="stylesheet" href="/static/fonts/RegioMono.css" />
           <style>{getStyles()}</style>
         </Head>
         <body>

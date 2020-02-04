@@ -5,7 +5,7 @@ import useRequest from "../lib/hooks/useRequest";
 import { style } from "typestyle";
 import { useUrlOnServer } from "../lib/hooks/useUrlOnServer";
 
-import Article from "../Components/Utils/Article";
+import Article from "../components/Utils/Article";
 
 const Studio: NextPage<{ initialData: any; BASE_URL: string }> = ({
   initialData,

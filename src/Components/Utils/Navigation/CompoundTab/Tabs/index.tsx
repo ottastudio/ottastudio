@@ -1,7 +1,7 @@
+import { style } from "typestyle";
 import Tab from "../../Tab/Tab";
 import TabContext from "../../Tab/TabContext";
 import Typing from "../../../Loader/Typing";
-import { style } from "typestyle";
 
 const Tabs: React.FC<{}> = () => {
   const divStyle = style({
