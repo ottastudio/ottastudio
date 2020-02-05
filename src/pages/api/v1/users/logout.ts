@@ -10,7 +10,7 @@ const register = async (req: NextApiRequest, res: NextApiResponse) => {
     await User.findOneAndUpdate({ _id: body._id }, { token: "" });
     return res.status(200).json({ success: true });
   } catch (error) {
-    return res.status(400).json({ success: false, error });
+    return res.json({ success: false });
   }
 };
 
