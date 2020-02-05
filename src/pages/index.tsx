@@ -38,8 +38,8 @@ const Index: NextPage<{ initialData: any }> = ({ initialData }) => {
           content="https://res.cloudinary.com/dpfd7jmay/image/upload/v1567080499/samples/board_hrlzgu.jpg"
         />
       </Head>
-      <Article sites={sites} />
       <Cube />
+      <Article sites={sites} />
     </Fragment>
   );
 };

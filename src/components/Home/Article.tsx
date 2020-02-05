@@ -1,10 +1,13 @@
 import { style, media } from "typestyle";
 
 const divStyle = style({
-  backgroundColor: "inherit",
-  color: "inherit",
-  position: "relative",
-  height: "100vh"
+  color: "#000000",
+  position: "fixed",
+  top: 0,
+  right: 0,
+  bottom: 0,
+  left: 0,
+  mixBlendMode: "difference"
 });
 
 const articleStyle = style(
@@ -19,10 +22,7 @@ const articleStyle = style(
     color: "inherit"
   },
   media({ maxWidth: 1366, minWidth: 768 }, { width: "66.66%" }),
-  media(
-    { maxWidth: 767 },
-    { width: "100%", top: 0, transform: "translate(-50%, 0%)" }
-  )
+  media({ maxWidth: 767 }, { width: "100%" })
 );
 
 const quoteStyle = style({
