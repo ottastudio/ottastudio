@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 import Axios, { AxiosResponse } from "axios";
@@ -9,10 +10,12 @@ import {
   buttonStyle
 } from "./formStyle";
 import { login } from "../../../_HOC/auth";
+import Typing from "../../../Utils/Loader/Typing";
 
 export interface RegisterProps {}
 
 const Login: React.FC<RegisterProps> = () => {
+  const [indicator, setIndicator] = useState(false);
   const registerSchema = Yup.object().shape({
     email: Yup.string()
       .email("Must be valid email")
@@ -23,6 +26,7 @@ const Login: React.FC<RegisterProps> = () => {
   });
 
   const submitForm = async (values: any, actions: any) => {
+    setIndicator(true);
     Axios.post("/api/v1/users/login", values).then((res: AxiosResponse) => {
       const { success, message } = res.data;
       if (!success) {
@@ -30,16 +34,17 @@ const Login: React.FC<RegisterProps> = () => {
           email: message,
           password: message
         });
+        setIndicator(false);
       } else {
         const {
           user: { token }
         } = res.data;
         setTimeout(() => {
-          actions;
           actions.setSubmitting(false);
           actions.resetForm();
-        }, 500);
-        login({ token });
+          setIndicator(false);
+          login({ token });
+        }, 1000);
       }
     });
   };
@@ -50,42 +55,44 @@ const Login: React.FC<RegisterProps> = () => {
       validationSchema={registerSchema}
       onSubmit={(values, actions) => submitForm(values, actions)}
     >
-      {({ errors, touched, values }) => (
-        <Form className={formStyle}>
-          <div className={spanStyle}>
-            <label className={labelStyle} htmlFor="email-input-login">
-              {errors.email && touched.email ? errors.email : null}
-            </label>
-            <Field
-              id="email-input-login"
-              name="email"
-              type="email"
-              placeholder="Email"
-              spellCheck={false}
-              value={values.email}
-              className={inputStyle}
-            />
-          </div>
+      {({ errors, touched, values }) => {
+        return (
+          <Form className={formStyle}>
+            <div className={spanStyle}>
+              <label className={labelStyle} htmlFor="email-input-login">
+                {errors.email && touched.email ? errors.email : null}
+              </label>
+              <Field
+                id="email-input-login"
+                name="email"
+                type="email"
+                placeholder="Email"
+                spellCheck={false}
+                value={values.email}
+                className={inputStyle}
+              />
+            </div>
 
-          <div className={spanStyle}>
-            <label className={labelStyle} htmlFor="password-input-login">
-              {errors.password && touched.password ? errors.password : null}
-            </label>
-            <Field
-              id="password-input-login"
-              name="password"
-              type="password"
-              placeholder="••••••"
-              spellCheck={false}
-              value={values.password}
-              className={inputStyle}
-            />
-          </div>
-          <button className={buttonStyle} type="submit">
-            Login
-          </button>
-        </Form>
-      )}
+            <div className={spanStyle}>
+              <label className={labelStyle} htmlFor="password-input-login">
+                {errors.password && touched.password ? errors.password : null}
+              </label>
+              <Field
+                id="password-input-login"
+                name="password"
+                type="password"
+                placeholder="••••••"
+                spellCheck={false}
+                value={values.password}
+                className={inputStyle}
+              />
+            </div>
+            <button className={buttonStyle} type="submit">
+              Login{indicator ? <Typing /> : null}
+            </button>
+          </Form>
+        );
+      }}
     </Formik>
   );
 };
