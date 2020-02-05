@@ -60,7 +60,7 @@ const Login: React.FC<RegisterProps> = () => {
               id="email-input-login"
               name="email"
               type="email"
-              placeholder="Valid Email"
+              placeholder="Email"
               spellCheck={false}
               value={values.email}
               className={inputStyle}
