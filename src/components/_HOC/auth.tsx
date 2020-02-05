@@ -8,9 +8,7 @@ import { useUrlOnServer } from "../../lib/hooks/useUrlOnServer";
 
 export const login = ({ token }: any) => {
   cookie.set("token", token, { expires: 1 });
-  setTimeout(() => {
-    Router.push("/user/dashboard");
-  }, 1000);
+  Router.push("/user/dashboard");
 };
 
 export const auth = (ctx: any) => {
@@ -24,14 +22,6 @@ export const auth = (ctx: any) => {
     }
   }
   return token;
-};
-
-export const logout = () => {
-  cookie.remove("token");
-  window.localStorage.setItem("logout", Date.now().toString());
-  setTimeout(() => {
-    Router.push("/");
-  }, 1000);
 };
 
 export const withAuthSync = (WrappedComponent: any) => {
@@ -60,13 +50,17 @@ export const withAuthSync = (WrappedComponent: any) => {
 
     const resUser = await Axios.get(`${BASE_URL}/api/v1/users?token=${token}`);
     const resUsers = await Axios.get(`${BASE_URL}/api/v1/users`);
+    const resSubscribers = await Axios.get(
+      `${BASE_URL}/api/v1/users/subscribe`
+    );
     const user = await resUser.data.users[0];
     const users = await resUsers.data;
+    const subscribers = await resSubscribers.data;
 
     const componentProps =
       WrappedComponent.getInitialProps &&
       (await WrappedComponent.getInitialProps(ctx));
-    return { ...componentProps, token, user, users };
+    return { ...componentProps, token, user, users, subscribers };
   };
 
   return Wrapper;
