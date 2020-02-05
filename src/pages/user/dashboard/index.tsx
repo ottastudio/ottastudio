@@ -34,7 +34,7 @@ const Dashboard: NextPage<DashboardProps> = props => {
   return (
     <DashboardLayout globalData={props}>
       <Head>
-        <title>Administrator Dashboard</title>
+        <title>{user.name}</title>
       </Head>
       <Cube />
       <div style={{ minHeight: "150vh", padding: 20 }}>
