@@ -61,7 +61,7 @@ const Navigation: React.FC<{}> = () => {
     // async simulated to avoid memory leak
     const closeContent = setTimeout(() => {
       Router.events.on("routeChangeComplete", () => setShowContent(false));
-    }, 300);
+    }, 1000);
     return () => clearTimeout(closeContent);
   });
 
