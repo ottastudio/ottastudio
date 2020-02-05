@@ -117,6 +117,27 @@ const MyApp: NextPage<AppProps> = ({ Component, pageProps, router }) => {
           text-decoration: none;
           color: inherit;
         }
+        table {
+          border-collapse: collapse;
+          width: 100%;
+        }
+        td,
+        th {
+          border: 1px solid currentColor;
+          text-align: left;
+          padding: 10px;
+          font-size: 1rem;
+          vertical-align: top;
+          cursor: pointer;
+        }
+        th,
+        tr:nth-child(even) {
+          background-color: coral;
+          font-weight: normal;
+        }
+        tr:hover {
+          background-color: rgba(0, 0, 0, 0.3);
+        }
         #__next {
           background-color: inherit;
           color: inherit;
