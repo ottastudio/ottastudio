@@ -13,7 +13,10 @@ const Footer: React.FC<FooterProps> = () => {
     position: "relative",
     backgroundColor: "transparent",
     color: "inherit",
-    display: pathname === "/user/dashboard" ? "none" : "flex",
+    display:
+      pathname === "/user/dashboard" || pathname === "/user/login"
+        ? "none"
+        : "flex",
     alignItems: "center",
     justifyContent: "center",
     borderTop: "1px solid"
