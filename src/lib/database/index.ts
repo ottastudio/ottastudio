@@ -13,7 +13,7 @@ export const withDB = (handler: any) => async (
       useNewUrlParser: true,
       useUnifiedTopology: true,
       useCreateIndex: true,
-      useFindAndModify: true
+      useFindAndModify: false
     })
     .then(responseDB => {
       console.log(`🚀 CONNECTION TO MONGODB ESTABLISHED`);
