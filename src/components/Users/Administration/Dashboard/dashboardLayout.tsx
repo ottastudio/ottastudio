@@ -1,46 +1,37 @@
 import { Fragment } from "react";
-import { style } from "typestyle";
-import { logout } from "../../../_HOC/auth";
-import { transition } from "../../../../lib/misc";
+import Axios from "axios";
+import Router from "next/router";
+import cookie from "js-cookie";
+
 import Typing from "../../../Utils/Loader/Typing";
+import { headerStyle, buttonStyle } from "./dashboardLayoutStyle";
 
 export interface DashboardLayoutProps {
   globalData?: any;
 }
-const headerStyle = style({
-  $debugName: "header-dashboard",
-  position: "sticky",
-  top: 0,
-  padding: 20,
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "space-between",
-  zIndex: 999
-});
-const buttonStyle = style({
-  $debugName: "logout-button",
-  height: 40,
-  background: "none",
-  color: "currentColor",
-  fontFamily: "inherit",
-  fontSize: "inherit",
-  cursor: "pointer",
-  border: "none",
-  padding: "0px 15px",
-  transition: `background-color ${transition.main}`,
-  $nest: {
-    "&:hover": {
-      textDecoration: "underline"
-    }
-  }
-});
+
 const DashboardLayout: React.FC<DashboardLayoutProps> = ({
   children,
   globalData
 }) => {
   const {
-    user: { name }
+    user: { name, _id }
   } = globalData;
+
+  const logout = (_id: string) => {
+    Axios.post(`/api/v1/users/logout`, { _id })
+      .then((res: any) => {
+        if (res.data.success) {
+          cookie.remove("token");
+          window.localStorage.setItem("logout", Date.now().toString());
+          setTimeout(() => {
+            Router.push("/");
+          }, 1000);
+        }
+      })
+      .catch((err: any) => console.log(err));
+  };
+
   return (
     <Fragment>
       <div className={headerStyle}>
@@ -48,7 +39,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({
           Hello, {name}
           <Typing />
         </span>
-        <button className={buttonStyle} onClick={logout}>
+        <button className={buttonStyle} onClick={() => logout(_id)}>
           Logout
         </button>
       </div>
