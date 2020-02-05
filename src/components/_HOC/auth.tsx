@@ -1,11 +1,16 @@
-import { useEffect } from "react";
 import Router from "next/router";
 import cookie from "js-cookie";
 import nextCookie from "next-cookies";
+import Axios from "axios";
+
+import { useEffect } from "react";
+import { useUrlOnServer } from "../../lib/hooks/useUrlOnServer";
 
 export const login = ({ token }: any) => {
   cookie.set("token", token, { expires: 1 });
-  Router.push("/user/dashboard");
+  setTimeout(() => {
+    Router.push("/user/dashboard");
+  }, 1000);
 };
 
 export const auth = (ctx: any) => {
@@ -24,7 +29,9 @@ export const auth = (ctx: any) => {
 export const logout = () => {
   cookie.remove("token");
   window.localStorage.setItem("logout", Date.now().toString());
-  Router.push("/");
+  setTimeout(() => {
+    Router.push("/");
+  }, 1000);
 };
 
 export const withAuthSync = (WrappedComponent: any) => {
@@ -48,11 +55,18 @@ export const withAuthSync = (WrappedComponent: any) => {
   };
 
   Wrapper.getInitialProps = async (ctx: any) => {
+    const { BASE_URL } = await useUrlOnServer(ctx);
     const token = auth(ctx);
+
+    const resUser = await Axios.get(`${BASE_URL}/api/v1/users?token=${token}`);
+    const resUsers = await Axios.get(`${BASE_URL}/api/v1/users`);
+    const user = await resUser.data.users[0];
+    const users = await resUsers.data;
+
     const componentProps =
       WrappedComponent.getInitialProps &&
       (await WrappedComponent.getInitialProps(ctx));
-    return { ...componentProps, token };
+    return { ...componentProps, token, user, users };
   };
 
   return Wrapper;
