@@ -1,4 +1,4 @@
-import dynamic from "next/dynamic";
+// import dynamic from "next/dynamic";
 import { NextPage } from "next";
 import Head from "next/head";
 
@@ -6,19 +6,19 @@ import useRequest from "../../../lib/hooks/useRequest";
 
 import { withAuthSync } from "../../../components/_HOC/auth";
 import DashboardLayout from "../../../components/Users/Administration/Dashboard/dashboardLayout";
-import Typing from "../../../components/Utils/Loader/Typing";
+// import Typing from "../../../components/Utils/Loader/Typing";
 import UserList from "../../../components/Users/Administration/UserList";
 
-const Loader = () => (
-  <div style={{ position: "fixed", top: 0, left: 0 }}>
-    <Typing />
-  </div>
-);
+// const Loader = () => (
+//   <div style={{ position: "fixed", top: 0, left: 0 }}>
+//     <Typing />
+//   </div>
+// );
 
-const Cube = dynamic(() => import("../../../components/Sandbox/Cube"), {
-  ssr: false,
-  loading: Loader
-});
+// const Cube = dynamic(() => import("../../../components/Sandbox/Cube"), {
+//   ssr: false,
+//   loading: Loader
+// });
 
 type User = {
   _id?: string;
@@ -45,12 +45,13 @@ const Dashboard: NextPage<DashboardProps> = props => {
     { url: "/api/v1/users/subscribe" },
     { initialData: subscribers }
   );
+
   return (
     <DashboardLayout globalData={props}>
       <Head>
         <title>{user.name}</title>
       </Head>
-      <Cube />
+      {/* <Cube /> */}
       <div style={{ padding: 20 }}>
         <div>{user.name}</div>
         <div>{user.email}</div>
