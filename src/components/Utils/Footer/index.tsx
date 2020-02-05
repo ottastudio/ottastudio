@@ -8,18 +8,15 @@ const Footer: React.FC<FooterProps> = () => {
   const { pathname } = useRouter();
   const footerStyle = style({
     $debugName: "footer",
+    position: "relative",
     height: "50vh",
     overflow: "hidden",
-    position: "relative",
     backgroundColor: "transparent",
     color: "inherit",
     display:
       pathname === "/user/dashboard" || pathname === "/user/login"
         ? "none"
-        : "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    borderTop: "1px solid"
+        : "block",
   });
   return (
     <footer className={footerStyle}>

@@ -4,15 +4,17 @@ import { transition } from "../../../../lib/misc";
 export const formStyle = style({
   $debugName: "form-block",
   width: 360,
-  position: "absolute",
-  bottom: -20,
+  position: "relative",
+  top: "calc(50% + 1px)",
   left: "50%",
-  transform: "translate(-50%, 50%)"
+  transform: "translate(-50%, -50%)"
 });
 
 export const spanStyle = style({
+  $debugName: "input-wrapper",
   position: "relative",
   height: 40,
+  border: "1px solid",
   marginTop: -1
 });
 
@@ -20,12 +22,14 @@ export const inputStyle = style({
   fontFamily: `"Regio Mono" !important`,
   width: "100%",
   appearance: "none",
-  border: "1px solid",
+  "-webkit-appearance": "none",
   padding: "0px 10px",
+  margin: 0,
   height: "100%",
   fontSize: "1rem",
   background: "none",
   color: "currentColor",
+  border: "none",
   $nest: {
     "&:focus": {
       $nest: {
@@ -51,23 +55,18 @@ export const labelStyle = style({
 });
 
 export const buttonStyle = style({
-  position: "absolute",
-  bottom: -10,
-  left: 0,
   width: "100%",
   textAlign: "left",
-  transform: "translateY(100%)",
   fontFamily: `"Regio Mono" !important`,
   height: 40,
   cursor: "pointer",
   fontSize: "1rem",
   background: "none",
   border: "1px solid",
-  marginTop: 5,
-  float: "right",
   borderRadius: 0,
   padding: "0px 10px",
   color: "currentColor",
+  marginTop: -1,
   $nest: {
     "&:hover": {
       backgroundColor: "lawngreen"

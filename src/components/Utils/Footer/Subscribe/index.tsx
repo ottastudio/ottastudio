@@ -14,7 +14,7 @@ import { style } from "typestyle";
 export interface SubscribeProps {}
 
 const newFormStyle = style({
-  top: "calc(50% - 40px)",
+  top: "50%",
   left: "50%",
   position: "absolute",
   transform: "translate(-50%, -50%)",

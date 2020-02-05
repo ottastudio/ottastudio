@@ -19,7 +19,7 @@ const Cube = dynamic(() => import("../../components/Sandbox/Cube"), {
 const Login: NextPage<{}> = () => {
   const divStyle = style({
     $debugName: "container-login",
-    height: "50vh",
+    height: "100vh",
     position: "relative",
     zIndex: 10
   });

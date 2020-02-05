@@ -5,7 +5,7 @@ import Toggles from "./Toggles";
 const Header: React.FC<{}> = () => {
   const headerStyle = style(
     {
-      height: 40,
+      height: 39,
       display: "flex",
       alignItems: "center",
       justifyContent: "space-between",
