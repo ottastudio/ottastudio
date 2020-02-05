@@ -7,7 +7,15 @@ import { useUrlOnServer } from "../lib/hooks/useUrlOnServer";
 import useRequest from "../lib/hooks/useRequest";
 
 import Article from "../components/Utils/Article";
-import Cube from "../components/Sandbox/Cube";
+import dynamic from "next/dynamic";
+import Typing from "../components/Utils/Loader/Typing";
+
+const Loader = () => <Typing />;
+
+const Cube = dynamic(() => import("../components/Sandbox/Cube"), {
+  ssr: false,
+  loading: Loader
+});
 
 const Index: NextPage<{ initialData: any; BASE_URL: string }> = ({
   initialData,
@@ -41,8 +49,8 @@ const Index: NextPage<{ initialData: any; BASE_URL: string }> = ({
           content="https://res.cloudinary.com/dpfd7jmay/image/upload/v1567080499/samples/board_hrlzgu.jpg"
         />
       </Head>
-      <Article sites={sites} header={title} footer />
       <Cube />
+      <Article sites={sites} header={title} footer />
     </div>
   );
 };
