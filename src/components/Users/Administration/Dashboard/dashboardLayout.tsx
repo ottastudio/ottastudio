@@ -1,16 +1,51 @@
-import { Fragment } from "react";
+import { Fragment, useContext, useEffect } from "react";
 import Axios from "axios";
 import Router from "next/router";
 import cookie from "js-cookie";
 
-import Typing from "../../../Utils/Loader/Typing";
+import { UIContext } from "../../../../lib/store/UIContext";
+import { SetNotificationType } from "../../../../lib/store/UIContext/interfaces";
 import { headerStyle, buttonStyle } from "./dashboardLayoutStyle";
 
-export interface DashboardLayoutProps {
-  globalData?: any;
-}
+import Typing from "../../../Utils/Loader/Typing";
 
-const DashboardLayout: React.FC<DashboardLayoutProps> = ({
+export const logout = async (
+  _id: string,
+  name: string,
+  setNotification: SetNotificationType
+) => {
+  setNotification({
+    status: true,
+    type: "good",
+    message: `Logging out ${name}`
+  });
+
+  const logoutAction = () => {
+    setTimeout(() => {
+      setNotification({ status: false });
+      Router.push("/");
+    }, 1000);
+  };
+
+  try {
+    const response = await Axios.post(`/api/v1/users/logout`, { _id });
+    const result = await response.data;
+
+    if (result.success) {
+      cookie.remove("token");
+      window.localStorage.setItem("logout", Date.now().toString());
+      setNotification({ status: true, type: "cool", message: result.message });
+      logoutAction();
+    } else {
+      setNotification({ status: true, type: "error", message: result.message });
+      logoutAction();
+    }
+  } catch (error) {
+    setNotification({ status: true, type: "error", message: error.message });
+  }
+};
+
+export const DashboardLayout: React.FC<{ globalData?: any }> = ({
   children,
   globalData
 }) => {
@@ -18,19 +53,12 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({
     user: { name, _id }
   } = globalData;
 
-  const logout = (_id: string) => {
-    Axios.post(`/api/v1/users/logout`, { _id })
-      .then((res: any) => {
-        if (res.data.success) {
-          cookie.remove("token");
-          window.localStorage.setItem("logout", Date.now().toString());
-          setTimeout(() => {
-            Router.push("/");
-          }, 1000);
-        }
-      })
-      .catch((err: any) => console.log(err));
-  };
+  const { setNotification, setUI } = useContext(UIContext);
+
+  useEffect(() => {
+    setUI({ footer: false });
+    return () => setUI({ footer: true });
+  }, []);
 
   return (
     <Fragment>
@@ -39,7 +67,10 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({
           Hello, {name}
           <Typing />
         </span>
-        <button className={buttonStyle} onClick={() => logout(_id)}>
+        <button
+          className={buttonStyle}
+          onClick={() => logout(_id, name, setNotification)}
+        >
           Logout
         </button>
       </div>
@@ -47,5 +78,3 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({
     </Fragment>
   );
 };
-
-export default DashboardLayout;
