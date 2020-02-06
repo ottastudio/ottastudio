@@ -1,10 +1,4 @@
 {
-  "name": "ottastudio",
-  "alias": [
-    "ottastudio.com",
-    "dev.ottastudio.com",
-    "ottastudio"
-  ],
   "version": 2,
   "builds": [
     {
