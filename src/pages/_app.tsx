@@ -1,12 +1,13 @@
 import { NextPage, NextPageContext, NextComponentType } from "next";
-import { Fragment } from "react";
 import { NextRouter } from "next/router";
 import { transition } from "../lib/misc";
+import { UIProvider } from "../lib/store/UIContext";
 
 import Navigation from "../components/Utils/Navigation";
 import NProgress from "../components/Utils/Loader/NProgress";
 import Footer from "../components/Utils/Footer";
 import OnlineIndicator from "../components/Utils/Loader/OnlineIndicator";
+import Notification from "../components/Utils/Notification";
 
 interface AppProps {
   Component: NextComponentType;
@@ -16,11 +17,12 @@ interface AppProps {
 
 const MyApp: NextPage<AppProps> = ({ Component, pageProps, router }) => {
   return (
-    <Fragment>
+    <UIProvider>
       <OnlineIndicator />
       <Navigation />
       <Component {...pageProps} key={router.asPath} />
       <NProgress />
+      <Notification />
       <Footer />
 
       <style jsx global>{`
@@ -188,7 +190,7 @@ const MyApp: NextPage<AppProps> = ({ Component, pageProps, router }) => {
           }
         }
       `}</style>
-    </Fragment>
+    </UIProvider>
   );
 };
 
