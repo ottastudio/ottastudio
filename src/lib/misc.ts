@@ -4,7 +4,8 @@ export const transition = {
 
 export const staticLinks = [
   { name: "Index", to: "/" },
-  { name: "Studio", to: "/studio" }
+  { name: "Studio", to: "/studio" },
+  { name: "Collaboration?", to: "/collaboration" }
   // { name: "Archive", to: "/archive" },
   // { name: "News", to: "/news" },
   // { name: "Exhibition", to: "/exhibition" },
