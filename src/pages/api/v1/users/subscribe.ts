@@ -14,16 +14,24 @@ const register = async (req: NextApiRequest, res: NextApiResponse) => {
       const user = await new Subscriber(body);
       try {
         const doc = await user.save();
-        return res.status(200).json({ success: true, doc });
+        return res.status(200).json({
+          success: true,
+          message: "Thank you!",
+          doc
+        });
       } catch (error) {
-        return res.status(400).json({ success: false, error });
+        return res.json({
+          success: false,
+          message: `Error "${body.email}" already used by other!`,
+          error
+        });
       }
     case "DELETE":
       try {
-        await Subscriber.remove({ _id: query.id });
-        return res.status(200).json({ success: true });
+        await Subscriber.deleteOne({ _id: query.id });
+        return res.status(200).json({ success: true, message: "deleted" });
       } catch (error) {
-        return res.status(400).json({ success: false });
+        return res.json({ success: false, message: "cannot be delete" });
       }
     default:
       return (
