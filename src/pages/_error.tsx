@@ -7,6 +7,7 @@ import Router from "next/router";
 import { useCountDown } from "../lib/hooks/useCountDown";
 import Typing from "../components/Utils/Loader/Typing";
 import { UIContext } from "../lib/store/UIContext";
+import Cube from "../components/Sandbox/Cube";
 
 const Error: NextPage<{ statusCode: number | undefined }> = ({
   statusCode
@@ -51,6 +52,7 @@ const Error: NextPage<{ statusCode: number | undefined }> = ({
       <Head>
         <title>{messages}</title>
       </Head>
+      <Cube scale={2.5} color="#f5f5f5" ambient={0.3} />
       <p className={divStyle}>
         <b>{messages}</b>
         <br />
