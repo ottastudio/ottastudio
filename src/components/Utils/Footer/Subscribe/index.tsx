@@ -1,17 +1,17 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { Form, Formik, Field } from "formik";
 import * as Yup from "yup";
-import Axios, { AxiosResponse } from "axios";
 import Typing from "../../Loader/Typing";
+import { style } from "typestyle";
+import { UIContext } from "../../../../lib/store/UIContext";
+import { subscribeFormSubmit } from "./subscribeActions";
+
 import {
   spanStyle,
   labelStyle,
   inputStyle,
   buttonStyle
 } from "../../../Users/Administration/Login/formStyle";
-import { style } from "typestyle";
-
-export interface SubscribeProps {}
 
 const newFormStyle = style({
   top: "50%",
@@ -21,7 +21,8 @@ const newFormStyle = style({
   width: 360
 });
 
-const Subscribe: React.FC<SubscribeProps> = () => {
+const Subscribe: React.FC<{}> = () => {
+  const { setNotification } = useContext(UIContext);
   const [indicator, setIndicator] = useState(false);
   const subscribeSchema = Yup.object().shape({
     email: Yup.string()
@@ -29,23 +30,13 @@ const Subscribe: React.FC<SubscribeProps> = () => {
       .required("Required")
   });
 
-  const submitForm = async (values: any, actions: any) => {
-    setIndicator(true);
-    Axios.post("/api/v1/users/subscribe", values).then((res: AxiosResponse) => {
-      if (res.data.success) {
-        setTimeout(() => {
-          actions.setSubmitting(false);
-          actions.resetForm();
-          setIndicator(false);
-        }, 1000);
-      }
-    });
-  };
   return (
     <Formik
       initialValues={{ email: "" }}
       validationSchema={subscribeSchema}
-      onSubmit={(values, actions) => submitForm(values, actions)}
+      onSubmit={(values, actions) =>
+        subscribeFormSubmit(values, actions, setIndicator, setNotification)
+      }
     >
       {({ errors, touched, values }) => {
         return (

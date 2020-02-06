@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
-import Axios, { AxiosResponse } from "axios";
+import Axios from "axios";
 import {
   formStyle,
   spanStyle,
@@ -11,12 +11,13 @@ import {
 } from "./formStyle";
 import { login } from "../../../_HOC/auth";
 import Typing from "../../../Utils/Loader/Typing";
+import { UIContext } from "../../../../lib/store/UIContext";
 
-export interface RegisterProps {}
-
-const Login: React.FC<RegisterProps> = () => {
+const Login: React.FC<{}> = () => {
+  const { setNotification } = useContext(UIContext);
   const [indicator, setIndicator] = useState(false);
-  const registerSchema = Yup.object().shape({
+
+  const loginSchema = Yup.object().shape({
     email: Yup.string()
       .email("Must be valid email")
       .required("Required"),
@@ -27,32 +28,46 @@ const Login: React.FC<RegisterProps> = () => {
 
   const submitForm = async (values: any, actions: any) => {
     setIndicator(true);
-    Axios.post("/api/v1/users/login", values).then((res: AxiosResponse) => {
-      const { success, message } = res.data;
-      if (!success) {
-        actions.setErrors({
-          email: message,
-          password: message
-        });
-        setIndicator(false);
-      } else {
-        const {
-          user: { token }
-        } = res.data;
-        setTimeout(() => {
-          actions.setSubmitting(false);
-          actions.resetForm();
-          setIndicator(false);
-          login({ token });
-        }, 1000);
-      }
+    setNotification({
+      status: true,
+      type: "good",
+      message: `Login as ${values.email}`
     });
+    const submitAction = () => {
+      actions.setSubmitting(false);
+      actions.resetForm();
+      setIndicator(false);
+      setTimeout(() => {
+        setNotification({ status: false });
+      }, 1000);
+    };
+
+    try {
+      const response = await Axios.post("/api/v1/users/login", values);
+      const result = await response.data;
+      const {
+        user: { token },
+        success,
+        message
+      } = await result;
+
+      if (success) {
+        login({ token });
+        setNotification({ status: true, type: "cool", message });
+        submitAction();
+      } else {
+        setNotification({ status: true, type: "error", message });
+        submitAction();
+      }
+    } catch (error) {
+      setNotification({ status: true, type: "error", message: error.message });
+    }
   };
 
   return (
     <Formik
       initialValues={{ email: "", password: "" }}
-      validationSchema={registerSchema}
+      validationSchema={loginSchema}
       onSubmit={(values, actions) => submitForm(values, actions)}
     >
       {({ errors, touched, values }) => {

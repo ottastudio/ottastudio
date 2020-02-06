@@ -1,11 +1,13 @@
-import { useRouter } from "next/router";
 import { style } from "typestyle";
+import { useContext } from "react";
+import { UIContext } from "../../../lib/store/UIContext";
 import Subscribe from "./Subscribe";
 
-export interface FooterProps {}
+const Footer: React.FC<{}> = () => {
+  const {
+    ui: { footer }
+  } = useContext(UIContext);
 
-const Footer: React.FC<FooterProps> = () => {
-  const { pathname } = useRouter();
   const footerStyle = style({
     $debugName: "footer",
     position: "relative",
@@ -13,13 +15,10 @@ const Footer: React.FC<FooterProps> = () => {
     overflow: "hidden",
     backgroundColor: "transparent",
     color: "inherit",
-    display:
-      pathname === "/user/dashboard" || pathname === "/user/login"
-        ? "none"
-        : "block",
+    display: footer ? "block" : "none"
   });
   return (
-    <footer className={footerStyle}>
+    <footer id="app-footer" className={footerStyle}>
       <Subscribe />
     </footer>
   );

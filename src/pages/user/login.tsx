@@ -1,5 +1,5 @@
 import { NextPage } from "next";
-import { useEffect } from "react";
+import { useEffect, useContext } from "react";
 import { style } from "typestyle";
 import Head from "next/head";
 import cookie from "js-cookie";
@@ -8,6 +8,7 @@ import dynamic from "next/dynamic";
 
 import Typing from "../../components/Utils/Loader/Typing";
 import LoginForm from "../../components/Users/Administration/Login";
+import { UIContext } from "../../lib/store/UIContext";
 
 const Loader = () => <Typing />;
 
@@ -17,6 +18,7 @@ const Cube = dynamic(() => import("../../components/Sandbox/Cube"), {
 });
 
 const Login: NextPage<{}> = () => {
+  const { setUI } = useContext(UIContext);
   const divStyle = style({
     $debugName: "container-login",
     height: "100vh",
@@ -27,6 +29,12 @@ const Login: NextPage<{}> = () => {
     const getCookie = cookie.get("token");
     typeof getCookie !== undefined && Router.push("/user/dashboard");
   }, []);
+
+  useEffect(() => {
+    setUI({ footer: false });
+    return () => setUI({ footer: true });
+  }, []);
+
   return (
     <div className={divStyle}>
       <Head>
