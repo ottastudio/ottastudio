@@ -7,9 +7,7 @@ export const useLocalStorage = (
   const [value, setStoredValue] = useState(() => {
     try {
       const item =
-        typeof window !== "undefined" &&
-        window &&
-        window.localStorage.getItem(key);
+        typeof window !== "undefined" && window?.localStorage.getItem(key);
       return item ? JSON.parse(item) : (initialValue as string);
     } catch (error) {
       console.log(error);
