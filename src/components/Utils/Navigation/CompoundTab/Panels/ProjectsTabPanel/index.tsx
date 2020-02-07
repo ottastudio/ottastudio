@@ -1,18 +1,15 @@
-import { style } from "typestyle";
 import TabPanel from "../../../Tab/TabPanel";
+import { panelStyle } from "../panelStyle";
+import { useContext } from "react";
+import { UIContext } from "../../../../../../lib/store/UIContext";
 
 const ProjectsTabPanel: React.FC<{}> = () => {
-  const divStyle = style({
-    $debugName: "projects-panel",
-    minHeight: 120,
-    padding: "10px 10px 40px 10px",
-    backgroundColor: "lightsalmon",
-    borderTop: "1px solid",
-    marginTop: -1
-  });
+  const {
+    darkModeScheme: { accent }
+  } = useContext(UIContext);
   return (
     <TabPanel whenActive="projects">
-      <div className={divStyle}>
+      <div className={panelStyle("projects-panel", accent as string)}>
         <a className="link">Projects</a>
       </div>
     </TabPanel>

@@ -1,24 +1,20 @@
-import { Fragment, useState, useEffect } from "react";
-import { style } from "typestyle";
+import { Fragment, useState, useEffect, useContext } from "react";
 import cookie from "js-cookie";
 
+import { UIContext } from "../../../../../../lib/store/UIContext";
 import { staticLinks, userLinks, adminLinks } from "../../../../../../lib/misc";
 import { NavlinkRegular } from "../../../../NavLink";
+import { panelStyle } from "../panelStyle";
 
 import TabPanel from "../../../Tab/TabPanel";
 
 export interface IndexTabPanelProps {}
 
 const IndexTabPanel: React.FC<IndexTabPanelProps> = () => {
+  const {
+    darkModeScheme: { accent }
+  } = useContext(UIContext);
   const [token, setToken] = useState<string | undefined>();
-  const divStyle = style({
-    $debugName: "index-panel",
-    minHeight: 120,
-    padding: "10px 10px 40px 10px",
-    backgroundColor: "coral",
-    borderTop: "1px solid",
-    marginTop: -1
-  });
 
   const linksToMap =
     token === undefined
@@ -31,7 +27,7 @@ const IndexTabPanel: React.FC<IndexTabPanelProps> = () => {
   });
   return (
     <TabPanel whenActive="index">
-      <div className={divStyle}>
+      <div className={panelStyle("index-panel", accent as string)}>
         {linksToMap.map(({ name, to }, i: number) => (
           <Fragment key={i}>
             <NavlinkRegular href={to} activeClassName="link-active">
