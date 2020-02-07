@@ -23,7 +23,7 @@ const Footer: React.FC<FooterProps> = () => {
         const name = sites ? (
           `${sites.name.full}.`
         ) : (
-          <span>
+          <span className={footerStyle}>
             Loading
             <Typing />
           </span>
