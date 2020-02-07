@@ -3,20 +3,15 @@ import { useContext } from "react";
 import { style } from "typestyle";
 import Axios from "axios";
 import Head from "next/head";
+import dynamic from "next/dynamic";
 
 import { UIContext } from "../lib/store/UIContext";
 import { useUrlOnServer } from "../lib/hooks/useUrlOnServer";
 import useRequest from "../lib/hooks/useRequest";
 
-import Article from "../components/Utils/Article";
-import dynamic from "next/dynamic";
-import Typing from "../components/Utils/Loader/Typing";
-
-const Loader = () => <Typing />;
-
+const Article = dynamic(() => import("../components/Utils/Article"));
 const Cube = dynamic(() => import("../components/Sandbox/Cube"), {
-  ssr: false,
-  loading: Loader
+  ssr: false
 });
 
 const Index: NextPage<{ initialData: any; BASE_URL: string }> = ({

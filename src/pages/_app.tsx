@@ -2,18 +2,29 @@ import { NextPage, NextPageContext, NextComponentType } from "next";
 import { NextRouter } from "next/router";
 import { transition } from "../lib/misc";
 import { Ottastudio } from "../lib/store";
-
-import Navigation from "../components/Utils/Navigation";
-import NProgress from "../components/Utils/Loader/NProgress";
-import Footer from "../components/Utils/Footer";
-import OnlineIndicator from "../components/Utils/Loader/OnlineIndicator";
-import Notification from "../components/Utils/Notification";
+import dynamic from "next/dynamic";
 
 interface AppProps {
   Component: NextComponentType;
   pageProps: NextPageContext;
   router: NextRouter;
 }
+
+const Navigation = dynamic(() => import("../components/Utils/Navigation"));
+const Footer = dynamic(() => import("../components/Utils/Footer"), {
+  ssr: false
+});
+const OnlineIndicator = dynamic(
+  () => import("../components/Utils/Loader/OnlineIndicator"),
+  { ssr: false }
+);
+const NProgress = dynamic(
+  () => import("../components/Utils/Loader/NProgress"),
+  { ssr: false }
+);
+const Notification = dynamic(() => import("../components/Utils/Notification"), {
+  ssr: false
+});
 
 const MyApp: NextPage<AppProps> = ({ Component, pageProps, router }) => {
   return (

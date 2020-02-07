@@ -3,11 +3,16 @@ import { useEffect, useContext } from "react";
 import { style } from "typestyle";
 import Head from "next/head";
 import Router from "next/router";
+import dynamic from "next/dynamic";
 
 import { useCountDown } from "../lib/hooks/useCountDown";
-import Typing from "../components/Utils/Loader/Typing";
 import { UIContext } from "../lib/store/UIContext";
-import Cube from "../components/Sandbox/Cube";
+
+const Typing = dynamic(() => import("../components/Utils/Loader/Typing"));
+const Cube = dynamic(() => import("../components/Sandbox/Cube"), {
+  ssr: false,
+  loading: () => <Typing />
+});
 
 const Error: NextPage<{ statusCode: number | undefined }> = ({
   statusCode

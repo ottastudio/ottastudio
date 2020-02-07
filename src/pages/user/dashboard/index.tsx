@@ -1,11 +1,16 @@
 import { NextPage } from "next";
 import Head from "next/head";
+import dynamic from "next/dynamic";
 
 import useRequest from "../../../lib/hooks/useRequest";
 
 import { withAuthSync } from "../../../components/_HOC/auth";
 import { DashboardLayout } from "../../../components/Users/Administration/Dashboard/dashboardLayout";
-import UserList from "../../../components/Users/Administration/UserList";
+
+const UserList = dynamic(
+  () => import("../../../components/Users/Administration/UserList"),
+  { ssr: false }
+);
 
 type User = {
   _id: string;

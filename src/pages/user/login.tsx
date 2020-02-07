@@ -6,15 +6,13 @@ import cookie from "js-cookie";
 import Router from "next/router";
 import dynamic from "next/dynamic";
 
-import Typing from "../../components/Utils/Loader/Typing";
-import LoginForm from "../../components/Users/Administration/Login";
 import { UIContext } from "../../lib/store/UIContext";
 
-const Loader = () => <Typing />;
-
+const LoginForm = dynamic(() =>
+  import("../../components/Users/Administration/Login")
+);
 const Cube = dynamic(() => import("../../components/Sandbox/Cube"), {
-  ssr: false,
-  loading: Loader
+  ssr: false
 });
 
 const Login: NextPage<{}> = () => {

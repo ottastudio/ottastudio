@@ -1,11 +1,12 @@
 import { NextPage, NextPageContext } from "next";
 import Head from "next/head";
+import dynamic from "next/dynamic";
 import Axios from "axios";
 import useRequest from "../lib/hooks/useRequest";
 import { style } from "typestyle";
 import { useUrlOnServer } from "../lib/hooks/useUrlOnServer";
 
-import Article from "../components/Utils/Article";
+const Article = dynamic(() => import("../components/Utils/Article"));
 
 const Studio: NextPage<{ initialData: any; BASE_URL: string }> = ({
   initialData,
