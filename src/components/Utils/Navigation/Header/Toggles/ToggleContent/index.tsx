@@ -1,9 +1,15 @@
-import NavigationContext from "../../../NavigationContext";
+import { useContext } from "react";
+import { UIContext } from "../../../../../../lib/store/UIContext";
+import { NavContext } from "../../../NavContext";
 import { toggleContent } from "..";
 import { style, media } from "typestyle";
 import { transition } from "../../../../../../lib/misc";
 
 const ToggleContent: React.FC<{}> = () => {
+  const {
+    darkModeScheme: { accent }
+  } = useContext(UIContext);
+  const { showContent, setShowContent, setDisable } = useContext(NavContext);
   const parrentStyle = style(
     {
       $debugName: "toggle-content",
@@ -17,7 +23,7 @@ const ToggleContent: React.FC<{}> = () => {
       $debugName: "toggle-label",
       fontSize: "2rem",
       fontWeight: 200,
-      paddingBottom: 3,
+      paddingBottom: active ? 5 : 3,
       cursor: "inherit",
       border: "1px solid",
       width: "100%",
@@ -25,31 +31,27 @@ const ToggleContent: React.FC<{}> = () => {
       display: "flex",
       alignItems: "center",
       justifyContent: "center",
-      backgroundColor: active ? "coral" : "transparent",
+      backgroundColor: accent,
       borderRadius: active ? "100%" : "0%",
       transform: active
         ? "rotate(180deg) scale(0.85)"
         : "rotate(0deg) scale(1)",
-      transition: `transform ${transition.main}, border-radius ${transition.main}, background-color ${transition.main}`,
+      transition: `transform ${transition.main}, border-radius ${transition.main}, background-color ${transition.main}, padding-bottom ${transition.main}`,
       $nest: {
         "&:hover": {
-          backgroundColor: "coral"
+          backgroundColor: accent
         }
       }
     });
   return (
-    <NavigationContext.Consumer>
-      {({ showContent, setShowContent, setDisable }) => (
-        <span
-          className={`${toggleContent} ${parrentStyle}`}
-          onClick={() => setShowContent(!showContent)}
-          onMouseOver={() => setDisable(true)}
-          onMouseLeave={() => setDisable(false)}
-        >
-          <label className={`${toggleActive(showContent)}`}>&darr;</label>
-        </span>
-      )}
-    </NavigationContext.Consumer>
+    <span
+      className={`${toggleContent} ${parrentStyle}`}
+      onClick={() => setShowContent(!showContent)}
+      onMouseOver={() => setDisable(true)}
+      onMouseLeave={() => setDisable(false)}
+    >
+      <label className={`${toggleActive(showContent)}`}>&darr;</label>
+    </span>
   );
 };
 

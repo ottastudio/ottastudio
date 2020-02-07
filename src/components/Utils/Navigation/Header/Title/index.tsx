@@ -1,11 +1,13 @@
+import { useContext } from "react";
 import { style } from "typestyle";
 import { useDocTitle } from "../../../../../lib/hooks/useDocTitle";
 import { useWindowDimension } from "../../../../../lib/hooks/useWindowDimension";
+import { NavContext } from "../../NavContext";
 
 import Typing from "../../../Loader/Typing";
-import NavigationContext from "../../NavigationContext";
 
 const Title: React.FC<{}> = () => {
+  const { setShowContent, showContent } = useContext(NavContext);
   const { title } = useDocTitle();
   const { width } = useWindowDimension();
   const isPhone = width <= 767 ? true : false;
@@ -16,28 +18,24 @@ const Title: React.FC<{}> = () => {
   });
 
   return (
-    <NavigationContext.Consumer>
-      {({ setShowContent, showContent }) => (
-        <span
-          className={spanStyle}
-          onClick={isPhone ? () => setShowContent(!showContent) : undefined}
-        >
-          {!title ? (
-            <span>
-              Loading
-              <Typing />
-            </span>
-          ) : title.length > 20 ? (
-            <span>
-              {title.slice(0, 20)}
-              <Typing />
-            </span>
-          ) : (
-            `${title}.`
-          )}
+    <span
+      className={spanStyle}
+      onClick={isPhone ? () => setShowContent(!showContent) : undefined}
+    >
+      {!title ? (
+        <span>
+          Loading
+          <Typing />
         </span>
+      ) : title.length > 20 ? (
+        <span>
+          {title.slice(0, 20)}
+          <Typing />
+        </span>
+      ) : (
+        `${title}.`
       )}
-    </NavigationContext.Consumer>
+    </span>
   );
 };
 

@@ -7,6 +7,7 @@ export interface NotificationProps {}
 
 const Notification: React.FC<NotificationProps> = () => {
   const {
+    darkModeScheme: { accent, danger, cool },
     setNotification,
     notification: { message, type, status }
   } = useContext(UIContext);
@@ -20,7 +21,7 @@ const Notification: React.FC<NotificationProps> = () => {
         fontSize: 14,
         zIndex: 1001,
         backgroundColor:
-          type === "good" ? "lawngreen" : type === "cool" ? "deeppink" : "red",
+          type === "good" ? accent : type === "cool" ? cool : danger,
         display: !status ? "none" : "block"
       }}
     >

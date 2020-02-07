@@ -1,12 +1,11 @@
-import { useState, useRef, useEffect } from "react";
+import { useRef, useEffect, useContext } from "react";
 import { style, media } from "typestyle";
 import Drag from "react-draggable";
 import Router from "next/router";
 
 import { useOnClickOutside } from "../../../lib/hooks/useOnClickOutside";
-import { useWindowDimension } from "../../../lib/hooks/useWindowDimension";
 
-import NavigationContext from "./NavigationContext";
+import { NavProvider, NavContext } from "./NavContext";
 import Header from "./Header";
 import CompoundTab from "./CompoundTab";
 
@@ -49,12 +48,7 @@ const draggableBounds = style(
 
 const Navigation: React.FC<{}> = () => {
   const navRef = useRef<HTMLElement>(null);
-  const { width } = useWindowDimension();
-
-  const isPhone = width <= 767 ? true : false;
-
-  const [disable, setDisable] = useState(isPhone);
-  const [showContent, setShowContent] = useState(false);
+  const { disable, setShowContent } = useContext(NavContext);
   useOnClickOutside(navRef, () => setShowContent(false));
 
   useEffect(() => {
@@ -63,17 +57,10 @@ const Navigation: React.FC<{}> = () => {
       Router.events.on("routeChangeComplete", () => setShowContent(false));
     }, 1000);
     return () => clearTimeout(closeContent);
-  });
+  }, []);
 
   return (
-    <NavigationContext.Provider
-      value={{
-        showContent,
-        setShowContent,
-        disable,
-        setDisable
-      }}
-    >
+    <NavProvider>
       <div className={draggableBounds} />
       <Drag
         bounds={`.${draggableBounds}`}
@@ -86,7 +73,7 @@ const Navigation: React.FC<{}> = () => {
           <CompoundTab />
         </nav>
       </Drag>
-    </NavigationContext.Provider>
+    </NavProvider>
   );
 };
 

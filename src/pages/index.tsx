@@ -1,8 +1,10 @@
 import { NextPage, NextPageContext } from "next";
+import { useContext } from "react";
 import { style } from "typestyle";
 import Axios from "axios";
 import Head from "next/head";
 
+import { UIContext } from "../lib/store/UIContext";
 import { useUrlOnServer } from "../lib/hooks/useUrlOnServer";
 import useRequest from "../lib/hooks/useRequest";
 
@@ -21,6 +23,10 @@ const Index: NextPage<{ initialData: any; BASE_URL: string }> = ({
   initialData,
   BASE_URL
 }) => {
+  const {
+    darkModeScheme: { accent }
+  } = useContext(UIContext);
+
   const {
     data: { sites }
   } = useRequest({ url: "/api/v1/sites/data" }, { initialData: initialData });
@@ -49,7 +55,7 @@ const Index: NextPage<{ initialData: any; BASE_URL: string }> = ({
           content="https://res.cloudinary.com/dpfd7jmay/image/upload/v1567080499/samples/board_hrlzgu.jpg"
         />
       </Head>
-      <Cube />
+      <Cube color={accent} />
       <Article sites={sites} header={title} footer />
     </div>
   );

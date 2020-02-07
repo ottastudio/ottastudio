@@ -1,5 +1,6 @@
 import { useContext, ReactElement } from "react";
 import { style, media } from "typestyle";
+import { UIContext } from "../../../../lib/store/UIContext";
 import TabContext from "./TabContext";
 
 export interface TabProps {
@@ -9,26 +10,16 @@ export interface TabProps {
 }
 
 const Tab: React.FC<TabProps> = ({ tab, children }) => {
+  const {
+    darkModeScheme: { accent }
+  } = useContext(UIContext);
   const tabBarContext = useContext(TabContext);
   const { setTab, activeTab } = tabBarContext;
 
   let isActive = activeTab === tab;
 
   const customActive = {
-    borderLeft:
-      isActive && activeTab === "projects"
-        ? "1px solid currentColor"
-        : "1px solid transparent",
-    borderRight:
-      isActive && activeTab === "index"
-        ? "1px solid currentColor"
-        : "1px solid transparent",
-    backgroundColor:
-      isActive && activeTab === "projects"
-        ? "lightsalmon"
-        : isActive && activeTab === "index"
-        ? "coral"
-        : "inherit"
+    backgroundColor: isActive ? accent : "inherit"
   };
 
   const tabStyle = style(
@@ -42,9 +33,9 @@ const Tab: React.FC<TabProps> = ({ tab, children }) => {
       border: "none",
       height: 40,
       cursor: "pointer",
-      color: "currentColor",
       padding: "0px 0px 0px 10px",
-      textAlign: "left"
+      textAlign: "left",
+      color: "currentColor"
     },
     media({ maxWidth: 767 }, { height: 60 })
   );
