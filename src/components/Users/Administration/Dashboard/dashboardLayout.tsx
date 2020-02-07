@@ -53,7 +53,11 @@ export const DashboardLayout: React.FC<{ globalData?: any }> = ({
     user: { name, _id }
   } = globalData;
 
-  const { setNotification, setUI } = useContext(UIContext);
+  const {
+    setNotification,
+    setUI,
+    darkModeScheme: { accent }
+  } = useContext(UIContext);
 
   useEffect(() => {
     setUI({ footer: false });
@@ -62,7 +66,7 @@ export const DashboardLayout: React.FC<{ globalData?: any }> = ({
 
   return (
     <Fragment>
-      <div className={headerStyle}>
+      <div className={headerStyle(accent as string)}>
         <span>
           Hello, {name}
           <Typing />
