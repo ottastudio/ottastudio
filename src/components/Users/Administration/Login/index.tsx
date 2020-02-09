@@ -12,12 +12,12 @@ import {
 import { login } from "../../../_HOC/auth";
 import Typing from "../../../Utils/Loader/Typing";
 import {
-  useNotificaionContext,
+  useNotificationContext,
   NotificationType
 } from "../../../../lib/store/NotificationContext";
 
 const Login: React.FC<{}> = () => {
-  const { addNotification } = useNotificaionContext();
+  const { addNotification } = useNotificationContext();
   const [indicator, setIndicator] = useState(false);
 
   const loginSchema = Yup.object().shape({

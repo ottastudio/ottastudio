@@ -7,7 +7,7 @@ import dynamic from "next/dynamic";
 
 import { useCountDown } from "../lib/hooks/useCountDown";
 import { useUIContext } from "../lib/store/UIContext";
-import { useNotificaionContext } from "../lib/store/NotificationContext";
+import { useNotificationContext } from "../lib/store/NotificationContext";
 
 const Typing = dynamic(() => import("../components/Utils/Loader/Typing"));
 const Cube = dynamic(() => import("../components/Sandbox/Cube"), {
@@ -18,7 +18,7 @@ const Cube = dynamic(() => import("../components/Sandbox/Cube"), {
 const Error: NextPage<{ statusCode: number | undefined }> = ({
   statusCode
 }) => {
-  const { addNotification } = useNotificaionContext();
+  const { addNotification } = useNotificationContext();
   const { setUI } = useUIContext();
   const mainStyle = style({
     $debugName: "error-page",
