@@ -1,30 +1,25 @@
-import { Fragment, useState, useEffect, useContext } from "react";
-import cookie from "js-cookie";
+import { Fragment } from "react";
 
-import { UIContext } from "../../../../../../lib/store/UIContext";
+import { useUIContext } from "../../../../../../lib/store/UIContext";
 import { staticLinks, userLinks, adminLinks } from "../../../../../../lib/misc";
 import { NavlinkRegular } from "../../../../NavLink";
 import { panelStyle } from "../panelStyle";
 
 import TabPanel from "../../../Tab/TabPanel";
+import { useAuthContext } from "../../../../../../lib/store/AuthContext";
 
 export interface IndexTabPanelProps {}
 
 const IndexTabPanel: React.FC<IndexTabPanelProps> = () => {
+  const { token } = useAuthContext();
   const {
     darkModeScheme: { accent }
-  } = useContext(UIContext);
-  const [token, setToken] = useState<string | undefined>();
+  } = useUIContext();
 
   const linksToMap =
     token === undefined
       ? staticLinks.concat(userLinks)
       : staticLinks.concat(adminLinks);
-
-  useEffect(() => {
-    const getCookie = cookie.get("token");
-    setToken(getCookie);
-  });
   return (
     <TabPanel whenActive="index">
       <div className={panelStyle("index-panel", accent as string)}>
