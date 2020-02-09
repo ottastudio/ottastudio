@@ -102,6 +102,7 @@ const MyApp: NextPage<AppProps> = ({ Component, pageProps, router }) => {
         * {
           outline: none;
           box-sizing: border-box;
+          fill: currentColor;
 
           -webkit-font-smoothing: antialiased;
           -moz-osx-font-smoothing: grayscale;
