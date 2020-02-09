@@ -9,30 +9,41 @@ const login = async (req: NextApiRequest, res: NextApiResponse) => {
     const user = await User.findOne({ email: body.email });
 
     if (!user) {
-      return res.json({ success: false, message: "Email not found!" });
+      return res.json({
+        success: false,
+        message: `${body.email} has not registered!`,
+        key: "email"
+      });
     } else {
       if (user.role !== 2) {
         return res.json({
           success: false,
-          message: "🥺"
+          message: "🥺",
+          key: "auth"
         });
       } else {
         await user.comparePassword(
           body.password,
           (_err: any, isMatch: boolean) => {
             if (!isMatch) {
-              return res.json({ success: false, message: "Wrong password!" });
+              return res.json({
+                success: false,
+                message: "Wrong password!",
+                key: "password"
+              });
             } else {
               user.generateToken((err: any, user: any) => {
                 if (err) {
                   return res.json({
                     success: false,
-                    message: "Cannot generate token"
+                    message: "Cannot generate token",
+                    key: "token"
                   });
                 }
                 return res.status(200).json({
                   success: true,
                   message: `Logged in as ${user.name}.`,
+                  key: "user",
                   user
                 });
               });
