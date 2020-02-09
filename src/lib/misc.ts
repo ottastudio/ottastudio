@@ -5,15 +5,9 @@ export const transition = {
 export const staticLinks = [
   { name: "Index", to: "/" },
   { name: "Studio", to: "/studio" },
+  { name: "Blog", to: "/blog" },
   { name: "Collaboration?", to: "/collaboration" }
-  // { name: "Archive", to: "/archive" },
-  // { name: "News", to: "/news" },
-  // { name: "Exhibition", to: "/exhibition" },
-  // { name: "Privacy Policy", to: "/policy" }
 ];
 
 export const userLinks = [{ name: "Login", to: "/user/login" }];
-export const adminLinks = [
-  { name: "Dashboard", to: "/user/dashboard" }
-  // { name: "Project", to: "/user/dashboard/project" }
-];
+export const adminLinks = [{ name: "Dashboard", to: "/user/dashboard" }];
