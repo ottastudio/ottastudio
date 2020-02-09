@@ -1,12 +1,5 @@
-import { useState, createContext } from "react";
-import {
-  NotificationType,
-  UIType,
-  SetUIType,
-  LoadingType,
-  SetLoadingType,
-  SetNotificationType
-} from "./interfaces";
+import { useState, createContext, useContext } from "react";
+import { UIType, SetUIType, LoadingType, SetLoadingType } from "./interfaces";
 import {
   DarkModeType,
   SetDarkModeType,
@@ -19,8 +12,6 @@ export interface UIContextProps {
   setUI: SetUIType;
   loading: LoadingType;
   setLoading: SetLoadingType;
-  notification: NotificationType;
-  setNotification: SetNotificationType;
   darkMode: DarkModeType;
   setDarkMode: SetDarkModeType;
   darkModeScheme: DarkModeSchemeType;
@@ -29,8 +20,6 @@ export interface UIContextProps {
 export const UIContext = createContext<UIContextProps>({
   loading: false,
   setLoading: () => {},
-  notification: { status: false },
-  setNotification: () => {},
   ui: {},
   setUI: () => {},
   darkMode: "theme--light",
@@ -42,11 +31,6 @@ export const UIProvider: React.FC<{}> = ({ children }) => {
   const { darkMode, setDarkMode, darkModeScheme } = useDarkMode();
   const [loading, setLoading] = useState<LoadingType>(false);
   const [ui, setUI] = useState<UIType>({ footer: true });
-  const [notification, setNotification] = useState<NotificationType>({
-    message: null,
-    status: false,
-    type: null
-  });
 
   return (
     <UIContext.Provider
@@ -55,8 +39,6 @@ export const UIProvider: React.FC<{}> = ({ children }) => {
         setUI,
         loading,
         setLoading,
-        notification,
-        setNotification,
         darkMode,
         setDarkMode,
         darkModeScheme
@@ -68,3 +50,4 @@ export const UIProvider: React.FC<{}> = ({ children }) => {
 };
 
 export const UIConsumer = UIContext.Consumer;
+export const useUIContext = () => useContext(UIContext);
