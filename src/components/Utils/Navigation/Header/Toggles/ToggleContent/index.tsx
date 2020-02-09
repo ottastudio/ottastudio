@@ -1,6 +1,5 @@
-import { useContext } from "react";
-import { UIContext } from "../../../../../../lib/store/UIContext";
-import { NavContext } from "../../../NavContext";
+import { useUIContext } from "../../../../../../lib/store/UIContext";
+import { useNavContext } from "../../../NavContext";
 import { toggleContent } from "..";
 import { style, media } from "typestyle";
 import { transition } from "../../../../../../lib/misc";
@@ -8,8 +7,8 @@ import { transition } from "../../../../../../lib/misc";
 const ToggleContent: React.FC<{}> = () => {
   const {
     darkModeScheme: { accent }
-  } = useContext(UIContext);
-  const { showContent, setShowContent, setDisable } = useContext(NavContext);
+  } = useUIContext();
+  const { showContent, setShowContent, setDisable } = useNavContext();
   const parrentStyle = style(
     {
       $debugName: "toggle-content",

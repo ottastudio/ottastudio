@@ -1,13 +1,12 @@
-import { useContext } from "react";
 import { style } from "typestyle";
 import { useDocTitle } from "../../../../../lib/hooks/useDocTitle";
 import { useWindowDimension } from "../../../../../lib/hooks/useWindowDimension";
-import { NavContext } from "../../NavContext";
+import { useNavContext } from "../../NavContext";
 
 import Typing from "../../../Loader/Typing";
 
 const Title: React.FC<{}> = () => {
-  const { setShowContent, showContent } = useContext(NavContext);
+  const { setShowContent, showContent } = useNavContext();
   const { title } = useDocTitle();
   const { width } = useWindowDimension();
   const isPhone = width <= 767 ? true : false;
