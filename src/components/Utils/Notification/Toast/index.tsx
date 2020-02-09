@@ -1,11 +1,18 @@
+import { useState, useEffect } from "react";
+import { style } from "typestyle";
 import {
   useNotificationContext,
   NotifType,
   NotifStatus,
   NotifId
 } from "../../../../lib/store/NotificationContext";
-import { style } from "typestyle";
-import { useState, useEffect } from "react";
+import {
+  IconSuccess,
+  IconWarning,
+  IconGreat,
+  IconError,
+  IconWaiting
+} from "../../Icons";
 
 export interface ToastProps {
   id: NotifId;
@@ -13,10 +20,27 @@ export interface ToastProps {
   status: NotifStatus;
 }
 
+const Icons = (type: NotifType) => {
+  switch (type) {
+    case "success":
+      return <IconSuccess />;
+    case "great":
+      return <IconGreat />;
+    case "waiting":
+      return <IconWaiting />;
+    case "warning":
+      return <IconWarning />;
+    case "error":
+      return <IconError />;
+    default:
+      return <IconGreat />;
+  }
+};
+
 const Toast: React.FC<ToastProps> = ({ children, id, type, status }) => {
   const { removeNotification } = useNotificationContext();
   const [counter, setCounter] = useState<number>(
-    status === "important" ? 10 : type === "warning" ? 5 : 3
+    status === "important" ? 10 : type === "warning" ? 4 : 3
   );
 
   useEffect(() => {
@@ -43,14 +67,10 @@ const Toast: React.FC<ToastProps> = ({ children, id, type, status }) => {
     justifyContent: "flex-end"
   });
   const spantyle = {
-    fontSize: 13,
+    fontSize: 14,
     border: "1px solid",
-    display: "flex",
-    alignItems: "flex-start",
-    paddingTop: 5,
-    paddingBottom: 5,
-    // minHeight: 40,
     lineHeight: 1,
+    boxShadow: "3px 3px 7px 0px rgba(0,0,0,0.3)",
     backgroundColor:
       type === "success"
         ? "palegreen"
@@ -63,36 +83,37 @@ const Toast: React.FC<ToastProps> = ({ children, id, type, status }) => {
         : "ivory"
   };
   const childId = style(spantyle, {
-    marginLeft: 5,
-    width: "12.5%",
+    $debugName: "toast-icon",
+    marginRight: 5,
     flexDirection: "column",
     justifyContent: "start",
     alignItems: "center",
-    flexWrap: "wrap"
+    flexWrap: "wrap",
+    padding: 3
   });
   const childMessage = style(spantyle, {
+    $debugName: "toast-message",
     width: "87.5%",
-    padding: "0px 5px"
+    padding: 5,
+    display: "grid",
+    gridTemplateColumns: "auto 16px",
+    alignItems: "center"
   });
-
-  const newId = id !== undefined && id;
+  const counterStyle = style({
+    $debugName: "toast-countdown",
+    width: 16,
+    height: 16,
+    display: "inline-flex",
+    alignItems: "center",
+    justifyContent: "center"
+  });
 
   return (
     <div className={divStyle} onClick={() => removeNotification(id)}>
+      <div className={childId}>{Icons(type)}</div>
       <div className={childMessage}>
-        <div>{children}</div>
-        {/* <div>10:59</div> */}
-      </div>
-      <div className={childId}>
-        <span>
-          {newId <= 9 && newId <= 99
-            ? `00${newId}`
-            : newId >= 9 && newId <= 99
-            ? `0${newId}`
-            : newId}
-        </span>
-        {/* <span>3</span> */}
-        <span>{counter}</span>
+        <span>{children}</span>
+        <span className={counterStyle}>{counter}</span>
       </div>
     </div>
   );
