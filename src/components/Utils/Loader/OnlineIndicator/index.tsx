@@ -1,10 +1,9 @@
 import Typing from "../Typing";
 import { style } from "typestyle";
-import { UIContext } from "../../../../lib/store/UIContext";
-import { useContext } from "react";
+import { useUIContext } from "../../../../lib/store/UIContext";
 
 const OnlineIndicator: React.FC<{}> = () => {
-  const { loading } = useContext(UIContext);
+  const { loading } = useUIContext();
   const divStyle = style({
     $debugName: "online-indicator",
     position: "fixed",

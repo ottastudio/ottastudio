@@ -1,12 +1,11 @@
-import { useContext } from "react";
 import { toggleContent } from "..";
 import { transition } from "../../../../../../lib/misc";
-import { NavContext } from "../../../NavContext";
-import { UIContext } from "../../../../../../lib/store/UIContext";
+import { useNavContext } from "../../../NavContext";
+import { useUIContext } from "../../../../../../lib/store/UIContext";
 
 const ToggleDarkMode: React.FC<{}> = () => {
-  const { darkMode, setDarkMode } = useContext(UIContext);
-  const { setDisable } = useContext(NavContext);
+  const { darkMode, setDarkMode } = useUIContext();
+  const { setDisable } = useNavContext();
   const toggleDarkMode = () =>
     darkMode === "theme--dark"
       ? setDarkMode("theme--light")

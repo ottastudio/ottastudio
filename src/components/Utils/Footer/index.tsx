@@ -1,12 +1,11 @@
 import { style } from "typestyle";
-import { useContext } from "react";
-import { UIContext } from "../../../lib/store/UIContext";
+import { useUIContext } from "../../../lib/store/UIContext";
 import Subscribe from "./Subscribe";
 
 const Footer: React.FC<{}> = () => {
   const {
     ui: { footer }
-  } = useContext(UIContext);
+  } = useUIContext();
 
   const footerStyle = style({
     $debugName: "footer",
