@@ -1,9 +1,9 @@
-import { Fragment, useContext, useEffect } from "react";
+import { Fragment, useEffect } from "react";
 import { style } from "typestyle";
 import Axios from "axios";
 
 import Typing from "../../../Utils/Loader/Typing";
-import { UIContext } from "../../../../lib/store/UIContext";
+import { useNotificaionContext } from "../../../../lib/store/NotificationContext";
 
 export interface UserListProps {
   users: any[];
@@ -18,7 +18,7 @@ const UserList: React.FC<UserListProps> = ({
   revalidateSubscriber,
   revalidateUsers
 }) => {
-  const { setNotification } = useContext(UIContext);
+  const { addNotification } = useNotificaionContext();
   const divStyle = style({
     padding: "0px 20px",
     position: "relative"
@@ -40,30 +40,27 @@ const UserList: React.FC<UserListProps> = ({
     }
   });
   const deleteSubscriber = async (id: string, email?: string) => {
-    setNotification({
-      status: true,
-      type: "good",
-      message: `Deleting ${email}`
+    addNotification({
+      status: "response",
+      message: `Deleting ${email}`,
+      type: "waiting"
     });
-    
+
     try {
       const response = await Axios.delete(`/api/v1/users/subscribe?id=${id}`);
       const result = await response.data;
       if (result.success) {
         await revalidateSubscriber();
-        setNotification({
-          status: true,
+        addNotification({
+          status: "dismissable",
           message: `${email} ${result.message}`,
-          type: "good"
+          type: "success"
         });
       }
-      setTimeout(() => {
-        setNotification({ status: false });
-      }, 1000);
     } catch (error) {
-      setNotification({
-        status: true,
-        message: `${email} cannot be delete.`,
+      addNotification({
+        status: "important",
+        message: error.message,
         type: "error"
       });
     }
@@ -122,28 +119,29 @@ const UserList: React.FC<UserListProps> = ({
                   onClick={
                     role === 2
                       ? () => {
-                          setNotification({
-                            status: true,
+                          addNotification({
+                            status: "dismissable",
                             message: `${name} Cannot be delete 😁.`,
-                            type: "cool"
+                            type: "warning"
                           });
-                          setTimeout(() => {
-                            setNotification({
-                              status: false
-                            });
-                          }, 1000);
                         }
                       : () => {
                           Axios.delete(`/api/v1/users?id=${_id}`).then(res => {
-                            setNotification({
-                              status: true,
-                              message: `${email} ${res.data.message}`,
-                              type: "good"
-                            });
-                            revalidateUsers();
-                            setTimeout(() => {
-                              setNotification({ status: false });
-                            }, 3000);
+                            if (res.data.success) {
+                              addNotification({
+                                status: "dismissable",
+                                message: res.data.message,
+                                type: "success"
+                              });
+                              revalidateUsers();
+                            } else {
+                              addNotification({
+                                status: "important",
+                                message: res.data.message,
+                                type: "error"
+                              });
+                              revalidateUsers();
+                            }
                           });
                         }
                   }

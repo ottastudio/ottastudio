@@ -1,28 +1,37 @@
-import { Fragment, useContext, useEffect } from "react";
+import { Fragment, useEffect } from "react";
 import Axios from "axios";
 import Router from "next/router";
 import cookie from "js-cookie";
 
-import { UIContext } from "../../../../lib/store/UIContext";
-import { SetNotificationType } from "../../../../lib/store/UIContext/interfaces";
+import {
+  SetTokenType,
+  useAuthContext
+} from "../../../../lib/store/AuthContext";
+import { useUIContext } from "../../../../lib/store/UIContext";
 import { headerStyle, buttonStyle } from "./dashboardLayoutStyle";
 
 import Typing from "../../../Utils/Loader/Typing";
+import {
+  useNotificaionContext,
+  AddNotificationType,
+  NotificationType
+} from "../../../../lib/store/NotificationContext";
 
 export const logout = async (
   _id: string,
   name: string,
-  setNotification: SetNotificationType
+  setToken: SetTokenType,
+  addNotification: AddNotificationType
 ) => {
-  setNotification({
-    status: true,
-    type: "good",
-    message: `Logging out ${name}`
+  addNotification({
+    status: "response",
+    message: `Logging out from ${name}`,
+    type: "waiting"
   });
 
-  const logoutAction = () => {
+  const logoutAction = ({ status, message, type }: NotificationType) => {
+    addNotification({ status, message, type });
     setTimeout(() => {
-      setNotification({ status: false });
       Router.push("/");
     }, 1000);
   };
@@ -34,14 +43,25 @@ export const logout = async (
     if (result.success) {
       cookie.remove("token");
       window.localStorage.setItem("logout", Date.now().toString());
-      setNotification({ status: true, type: "cool", message: result.message });
-      logoutAction();
+      setToken(undefined);
+      logoutAction({
+        status: "dismissable",
+        message: result.message,
+        type: "great"
+      });
     } else {
-      setNotification({ status: true, type: "error", message: result.message });
-      logoutAction();
+      logoutAction({
+        status: "important",
+        message: result.message,
+        type: "error"
+      });
     }
   } catch (error) {
-    setNotification({ status: true, type: "error", message: error.message });
+    addNotification({
+      status: "important",
+      message: error.message,
+      type: "error"
+    });
   }
 };
 
@@ -52,12 +72,12 @@ export const DashboardLayout: React.FC<{ globalData?: any }> = ({
   const {
     user: { name, _id }
   } = globalData;
-
+  const { setToken } = useAuthContext();
+  const { addNotification } = useNotificaionContext();
   const {
-    setNotification,
     setUI,
     darkModeScheme: { accent }
-  } = useContext(UIContext);
+  } = useUIContext();
 
   useEffect(() => {
     setUI({ footer: false });
@@ -73,7 +93,7 @@ export const DashboardLayout: React.FC<{ globalData?: any }> = ({
         </span>
         <button
           className={buttonStyle}
-          onClick={() => logout(_id, name, setNotification)}
+          onClick={() => logout(_id, name, setToken, addNotification)}
         >
           Logout
         </button>

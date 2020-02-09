@@ -1,12 +1,13 @@
 import { NextPage } from "next";
-import { useEffect, useContext } from "react";
+import { useEffect } from "react";
 import { style } from "typestyle";
 import Head from "next/head";
 import Router from "next/router";
 import dynamic from "next/dynamic";
 
 import { useCountDown } from "../lib/hooks/useCountDown";
-import { UIContext } from "../lib/store/UIContext";
+import { useUIContext } from "../lib/store/UIContext";
+import { useNotificaionContext } from "../lib/store/NotificationContext";
 
 const Typing = dynamic(() => import("../components/Utils/Loader/Typing"));
 const Cube = dynamic(() => import("../components/Sandbox/Cube"), {
@@ -17,7 +18,8 @@ const Cube = dynamic(() => import("../components/Sandbox/Cube"), {
 const Error: NextPage<{ statusCode: number | undefined }> = ({
   statusCode
 }) => {
-  const { setNotification, setUI } = useContext(UIContext);
+  const { addNotification } = useNotificaionContext();
+  const { setUI } = useUIContext();
   const mainStyle = style({
     $debugName: "error-page",
     position: "fixed",
@@ -44,10 +46,8 @@ const Error: NextPage<{ statusCode: number | undefined }> = ({
   counter < 1 ? Router.push("/") : null;
   useEffect(() => {
     setUI({ footer: false });
-    setNotification({ message: messages, status: true, type: "error" });
-
+    addNotification({ message: messages, status: "important", type: "error" });
     return () => {
-      setNotification({ status: false });
       setUI({ footer: true });
     };
   }, []);

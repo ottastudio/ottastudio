@@ -1,9 +1,8 @@
-import { useState, useContext } from "react";
+import { useState } from "react";
 import { Form, Formik, Field } from "formik";
 import * as Yup from "yup";
 import Typing from "../../Loader/Typing";
 import { style } from "typestyle";
-import { UIContext } from "../../../../lib/store/UIContext";
 import { subscribeFormSubmit } from "./subscribeActions";
 
 import {
@@ -12,6 +11,7 @@ import {
   inputStyle,
   buttonStyle
 } from "../../../Users/Administration/Login/formStyle";
+import { useNotificaionContext } from "../../../../lib/store/NotificationContext";
 
 const newFormStyle = style({
   top: "50%",
@@ -22,7 +22,7 @@ const newFormStyle = style({
 });
 
 const Subscribe: React.FC<{}> = () => {
-  const { setNotification } = useContext(UIContext);
+  const { addNotification } = useNotificaionContext();
   const [indicator, setIndicator] = useState(false);
   const subscribeSchema = Yup.object().shape({
     email: Yup.string()
@@ -35,7 +35,7 @@ const Subscribe: React.FC<{}> = () => {
       initialValues={{ email: "" }}
       validationSchema={subscribeSchema}
       onSubmit={(values, actions) =>
-        subscribeFormSubmit(values, actions, setIndicator, setNotification)
+        subscribeFormSubmit(values, actions, setIndicator, addNotification)
       }
     >
       {({ errors, touched, values }) => {
