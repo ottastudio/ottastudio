@@ -12,7 +12,7 @@ import { headerStyle, buttonStyle } from "./dashboardLayoutStyle";
 
 import Typing from "../../../Utils/Loader/Typing";
 import {
-  useNotificaionContext,
+  useNotificationContext,
   AddNotificationType,
   NotificationType
 } from "../../../../lib/store/NotificationContext";
@@ -73,7 +73,7 @@ export const DashboardLayout: React.FC<{ globalData?: any }> = ({
     user: { name, _id }
   } = globalData;
   const { setToken } = useAuthContext();
-  const { addNotification } = useNotificaionContext();
+  const { addNotification } = useNotificationContext();
   const {
     setUI,
     darkModeScheme: { accent }

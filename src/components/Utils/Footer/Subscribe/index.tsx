@@ -11,7 +11,7 @@ import {
   inputStyle,
   buttonStyle
 } from "../../../Users/Administration/Login/formStyle";
-import { useNotificaionContext } from "../../../../lib/store/NotificationContext";
+import { useNotificationContext } from "../../../../lib/store/NotificationContext";
 
 const newFormStyle = style({
   top: "50%",
@@ -22,7 +22,7 @@ const newFormStyle = style({
 });
 
 const Subscribe: React.FC<{}> = () => {
-  const { addNotification } = useNotificaionContext();
+  const { addNotification } = useNotificationContext();
   const [indicator, setIndicator] = useState(false);
   const subscribeSchema = Yup.object().shape({
     email: Yup.string()

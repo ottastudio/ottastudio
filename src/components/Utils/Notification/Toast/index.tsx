@@ -1,5 +1,5 @@
 import {
-  useNotificaionContext,
+  useNotificationContext,
   NotifType,
   NotifStatus,
   NotifId
@@ -14,7 +14,7 @@ export interface ToastProps {
 }
 
 const Toast: React.FC<ToastProps> = ({ children, id, type, status }) => {
-  const { removeNotification } = useNotificaionContext();
+  const { removeNotification } = useNotificationContext();
   const [counter, setCounter] = useState<number>(
     status === "important" ? 10 : type === "warning" ? 5 : 3
   );

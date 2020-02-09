@@ -3,7 +3,7 @@ import { style } from "typestyle";
 import Axios from "axios";
 
 import Typing from "../../../Utils/Loader/Typing";
-import { useNotificaionContext } from "../../../../lib/store/NotificationContext";
+import { useNotificationContext } from "../../../../lib/store/NotificationContext";
 
 export interface UserListProps {
   users: any[];
@@ -18,7 +18,7 @@ const UserList: React.FC<UserListProps> = ({
   revalidateSubscriber,
   revalidateUsers
 }) => {
-  const { addNotification } = useNotificaionContext();
+  const { addNotification } = useNotificationContext();
   const divStyle = style({
     padding: "0px 20px",
     position: "relative"

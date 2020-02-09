@@ -11,12 +11,13 @@ export interface NotificationType {
   type: NotifType;
 }
 export type AddNotificationType = ({}: NotificationType) => void;
+export type RemoveNotificationType = (id: NotifId) => void;
 
 export interface SetToasts extends Array<NotificationType> {}
 export interface NotificationContextProps {
   notifications: Array<NotificationType>;
   addNotification: AddNotificationType;
-  removeNotification: (id: NotifId) => void;
+  removeNotification: RemoveNotificationType;
 }
 
 export const NotificationContext = createContext<NotificationContextProps>({
@@ -27,7 +28,9 @@ export const NotificationContext = createContext<NotificationContextProps>({
 export const NotificationProvider: React.FC<{}> = ({ children }) => {
   let notifCounter = 0;
 
-  const [notifications, setNotifications] = useState<Array<NotificationType>>([]);
+  const [notifications, setNotifications] = useState<Array<NotificationType>>(
+    []
+  );
   const addNotification = useCallback(
     ({ id = notifCounter++, status, message, type }: NotificationType) => {
       setNotifications(notifications => [
@@ -55,7 +58,7 @@ export const NotificationProvider: React.FC<{}> = ({ children }) => {
   );
 };
 export const NotificationConsumer = NotificationContext.Consumer;
-export const useNotificaionContext = () => useContext(NotificationContext);
+export const useNotificationContext = () => useContext(NotificationContext);
 
 // const sampleNotification: Array<NotificationType> = [
 //   {

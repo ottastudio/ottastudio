@@ -1,9 +1,9 @@
 import { style, media } from "typestyle";
-import { useNotificaionContext } from "../../../lib/store/NotificationContext";
+import { useNotificationContext } from "../../../lib/store/NotificationContext";
 import Toast from "./Toast";
 
 const Notification: React.FC<{}> = () => {
-  const { notifications } = useNotificaionContext();
+  const { notifications } = useNotificationContext();
   const divStyle = style(
     {
       $debugName: "notification-wrapper",
