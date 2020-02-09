@@ -102,7 +102,6 @@ const MyApp: NextPage<AppProps> = ({ Component, pageProps, router }) => {
         * {
           outline: none;
           box-sizing: border-box;
-          user-select: none;
 
           -webkit-font-smoothing: antialiased;
           -moz-osx-font-smoothing: grayscale;
@@ -122,6 +121,9 @@ const MyApp: NextPage<AppProps> = ({ Component, pageProps, router }) => {
 
           background-color: #f5f5f5;
           color: #000000;
+
+          user-select: auto;
+          touch-action: auto;
 
           transition: background-color ${transition.main},
             color ${transition.main};
